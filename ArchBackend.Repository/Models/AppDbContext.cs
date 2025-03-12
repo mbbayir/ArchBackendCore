@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ArchBackend.Core.Models.Identity;
+using ArchBackend.Repository.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ArchBackend.Repository.Models
 {
-    public class AppDbContext : IdentityDbContext<User, Role, string>
+    public class AppDbContext : IdentityDbContext<Users, Roles, int>
     {   
-        DbSet<User> Users { get; set; }
+        DbSet<Users> Users { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
@@ -20,21 +21,7 @@ namespace ArchBackend.Repository.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            // Seed users here if necessary
-            modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    FirstName = "John",
-                    LastName = "Doe",
-                    UserName = "admin",
-                    NormalizedUserName = "ADMIN",
-                    Email = "admin@example.com",
-                    NormalizedEmail = "ADMIN@EXAMPLE.COM",
-                    EmailConfirmed = true
-                }
-            );
+            
         }
 
     }

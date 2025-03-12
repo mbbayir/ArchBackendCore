@@ -1,0 +1,44 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+</head>
+<body>
+    @model ArchBackend.Core.ViewModels.LoginViewModel
+
+    <form asp-action="Login" method="post">
+
+        <div>
+            <label asp-for="UserName"></label>
+            <input asp-for="UserName" placeholder="UserName" />
+            <span asp-validation-for="UserName" class="text-danger"></span> 
+        </div>
+
+        <div>
+            <label asp-for="Password"></label>
+            <input asp-for="Password" type="password" placeholder="Password" />
+            <span asp-validation-for="Password" class="text-danger"></span> 
+        </div>
+
+        <div>
+            <label asp-for="RememberMe"></label>
+            <input asp-for="RememberMe" type="checkbox" /> Remember Me
+        </div>
+
+        <div>
+            <button type="submit">Login</button>
+        </div>
+    </form>
+
+
+
+
+</body>
+</html>

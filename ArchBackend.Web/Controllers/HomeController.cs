@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using ArchBackend.Web.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArchBackend.Web.Controllers
