@@ -38,7 +38,7 @@ namespace ArchBackend.Web.Controllers
 
             var user = new Users
             {
-                UserName = model.UserName,
+                UserName = model.Email,
                 Email = model.Email,
                 FirstName = model.FirstName,
                 LastName = model.LastName
@@ -62,7 +62,6 @@ namespace ArchBackend.Web.Controllers
                 ModelState.AddModelError("", error.Description);
             }
 
-            // If there were errors, return the model to the view so the user can fix them
             return View();
         }
 
