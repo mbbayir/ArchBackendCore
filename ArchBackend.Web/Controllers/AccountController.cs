@@ -33,7 +33,7 @@ namespace ArchBackend.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model); // Return the model to the view if validation fails
+                return View(model); 
             }
 
             var user = new Users
@@ -44,19 +44,16 @@ namespace ArchBackend.Web.Controllers
                 LastName = model.LastName
             };
 
-            // Create the user
             var result = await _userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
-                // If user creation succeeds, sign the user in
+                
                 await _signInManager.SignInAsync(user, isPersistent: false);
 
-                // Redirect to the Home page
                 return RedirectToAction("Login", "Account");
             }
 
-            // If the result contains errors, add them to ModelState
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError("", error.Description);
@@ -79,7 +76,6 @@ namespace ArchBackend.Web.Controllers
                 return View(model);
             }
 
-            // Fetch user by email or username
             var user = await _userManager.FindByEmailAsync(model.UserName)
                        ?? await _userManager.FindByNameAsync(model.UserName);
 
@@ -92,7 +88,7 @@ namespace ArchBackend.Web.Controllers
             var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, false);
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Panel");
             }
 
             ModelState.AddModelError("", "Invalid login attempt.");
