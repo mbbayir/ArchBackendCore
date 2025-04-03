@@ -27,6 +27,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString, b => b.MigrationsAssembly("ArchBackend.Repository"));
 });
 
+
 builder.Services.AddIdentity<Users, Roles>(options =>
 {
     options.User.RequireUniqueEmail = true;
@@ -64,7 +65,7 @@ app.UseStaticFiles(); // Ensure static files can be served
 
 app.UseRouting();
 
-app.UseAuthentication(); // Ensure authentication is applied
+app.UseAuthentication(); 
 app.UseAuthorization();
 
 app.MapControllerRoute(

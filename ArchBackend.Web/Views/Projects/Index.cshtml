@@ -21,13 +21,11 @@
                     <tr>
                         <th>Project Name</th>
                         <th>Project Description</th>
-                        <th>Status</th>
-                        <th>Project Url</th>
+                        <th>Project Tag </th>
+                        <th>Project Image</th>
                     </tr>
                     </thead>
-                   <tbody>
-
-                   </tbody>
+                    <tbody id="projecttable"> </tbody>
                 </table>
             </div>
         </div>
@@ -43,29 +41,29 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="projectForm">
+                <form id="projectForm" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="projectName" class="form-label">Project Name</label>
-                        <input type="text" class="form-control" id="projectName" placeholder="Enter project name" required>
+                        <input type="text" class="form-control" id="projectName" name="Name" required>
                     </div>
                     <div class="mb-3">
                         <label for="projectDescription" class="form-label">Project Description</label>
-                        <textarea class="form-control" id="projectDescription" placeholder="Enter Project Description" required></textarea>
+                        <textarea class="form-control" id="projectDescription" name="Description" required></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="projectTag" class="form-label">Project Tag</label>
-                        <input type="text" class="form-control" id="projectTag" placeholder="Enter project tag" required>
+                        <input type="text" class="form-control" id="projectTag" name="Tag" required>
                     </div>
                     <div class="mb-3">
-                        <label for="projectUrl" class="form-label">ProjectUrl</label>
-                        <input type="text" class="form-control" id="projectUrl" placeholder="Enter Project Url"  required/>
+                        <label for="projectImage" class="form-label">Project Image</label>
+                        <input type="file" class="form-control" id="projectImage" name="formFile" required>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save Project</button>
-                    </div>
+                    <button type="submit" class="btn btn-primary">Save Project</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/ajax/projects/addprojects.js"></script>

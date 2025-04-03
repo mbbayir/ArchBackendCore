@@ -98,6 +98,35 @@ namespace ArchBackend.Repository.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("ArchBackend.Core.Models.Picture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("Picture");
+                });
+
             modelBuilder.Entity("ArchBackend.Repository.Models.Bridges.ProjectCategory", b =>
                 {
                     b.Property<int>("ProjectId")
@@ -236,10 +265,6 @@ namespace ArchBackend.Repository.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -389,6 +414,17 @@ namespace ArchBackend.Repository.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("ArchBackend.Core.Models.Picture", b =>
+                {
+                    b.HasOne("ArchBackend.Repository.Models.Project", "Project")
+                        .WithMany("Picture")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
+                });
+
             modelBuilder.Entity("ArchBackend.Repository.Models.Bridges.ProjectCategory", b =>
                 {
                     b.HasOne("ArchBackend.Repository.Models.Category", "Category")
@@ -487,6 +523,8 @@ namespace ArchBackend.Repository.Migrations
 
             modelBuilder.Entity("ArchBackend.Repository.Models.Project", b =>
                 {
+                    b.Navigation("Picture");
+
                     b.Navigation("ProjectCategories");
                 });
 

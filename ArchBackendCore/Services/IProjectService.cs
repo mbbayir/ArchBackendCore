@@ -6,16 +6,18 @@
     using ArchBackend.Core.Models;
 using ArchBackend.Core.Service;
 using ArchBackend.Repository.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace ArchBackend.Core.Services
 {
-    public interface IProjectService: IService<Project>
+    public interface IProjectService
     {
-        Task<IEnumerable<Project>> GetProjects();
-        Task<Project> GetProjectById(int id);
-        Task<Project> CreateProject(Project project);
-        Task<Project> UpdateProject(Project project);
-        Task<bool> DeleteProject(int id);
+        Task<IEnumerable<Project>> GetProjectsAsync();
+        Task<Project> GetProjectByIdAsync(int id);
+        Task<Project> AddProjectAsync(Project project, IFormFile formFile);
+        Task<Project> UpdateProjectAsync(Project project);
+        Task<bool> DeleteProjectAsync(int id);
     }
+
 }
 
