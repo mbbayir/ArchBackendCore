@@ -1,0 +1,83 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>ArifTurhalArch | Login</title>
+
+    @await Html.PartialAsync("~/Views/Shared/Partials/StylePartialView.cshtml")
+</head>
+<body class="loading-overlay-showing" data-loading-overlay>
+    @model ArchBackend.Core.ViewModels.LoginViewModel
+
+    @Html.AntiForgeryToken()
+
+    <section class="body-sign">
+        <div class="center-sign">
+            <a href="/" class="logo float-left m-4 d-block text-center">
+                <img src="~/Panel/img/ArchBackend.png" style="max-width: 380px" alt="ArifTurhalArch" />
+            </a>
+
+            <div class="panel card-sign">
+                <div class="card-body border-primary pb-4">
+                    <form id="signInForm" asp-action="Login" asp-controller="Account" method="post">
+                        <!-- Email Input -->
+                        <div class="form-group mb-3">
+                            <label asp-for="UserName">Email</label>
+                            <div class="input-group">
+                                <input type="email" asp-for="UserName" class="form-control form-control-lg" required />
+                                <span class="input-group-append">
+                                    <span class="input-group-text h-100 px-3 rounded-0 rounded-end">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                </span>
+                            </div>
+                            <span class="text-danger" asp-validation-for="UserName"></span>
+                        </div>
+
+                        <!-- Password Input -->
+                        <div class="form-group mb-3">
+                            <label asp-for="Password">Password</label>
+                            <div class="input-group">
+                                <input type="password" asp-for="Password" class="form-control form-control-lg" required />
+                                <span class="input-group-append">
+                                    <span class="input-group-text h-100 px-3 rounded-0 rounded-end toggle-password">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                </span>
+                            </div>
+                            <span class="text-danger" asp-validation-for="Password"></span>
+                        </div>
+
+                        <!-- Remember Me Checkbox & Login Button -->
+                        <div class="row">
+                            <div class="col-sm-8 d-xl-flex d-lg-flex d-md-flex d-block align-items-center">
+                                <div class="form-check">
+                                    <input type="checkbox" id="RememberMe" asp-for="RememberMe" class="form-check-input" />
+                                    <label for="RememberMe" class="form-check-label">Remember me</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <button type="submit" class="btn btn-primary text-white mt-2 w-100">Login</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <p class="text-center text-muted mt-3">
+                &copy; Copyright <a href="https://mehmetburakbayir.com" target="_blank">mehmetburakbayir.com</a>
+            </p>
+        </div>
+    </section>
+
+    @await Html.PartialAsync("~/Views/Shared/Partials/ScriptPartialView.cshtml")
+
+</body>
+</html>
+
+

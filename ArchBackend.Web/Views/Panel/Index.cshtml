@@ -1,0 +1,115 @@
+﻿
+@{
+    Layout = "_LayoutPanel";
+    Layout = "~/Views/Shared/Partials/_LayoutPanel.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div class="row">
+
+        <a class="text-muted text-uppercase mb-3 mt-0 ps-0 col-lg-4 d-block" href="/Projects/Index">
+            <section class="card card-featured-left" style="border-color:aquamarine">
+                <div class="card-body">
+                    <div class="widget-summary">
+                        <div class="widget-summary-col widget-summary-col-icon">
+                            <div class="summary-icon" style="background-color:aquamarine">
+                                <i class="fa-solid fa-earth-americas"></i>
+                            </div>
+                        </div>
+                        <div class="widget-summary-col">
+                            <div class="summary">
+                                <h4 class="title text-capitalize" >Projects</h4>
+                                <div class="info">
+                                    <span style="color: aquamarine"></span>
+                                </div>
+                            </div>
+                            <div class="summary-footer">
+                                (go to)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </a>
+        <a class="text-muted text-uppercase mb-3 mt-0 ps-0 col-lg-4 d-block" href="/Services/Index">
+            <section class="card card-featured-left" style="border-color: lightskyblue">
+                <div class="card-body">
+                    <div class="widget-summary">
+                        <div class="widget-summary-col widget-summary-col-icon">
+                            <div class="summary-icon" style="background-color: lightskyblue">
+                                <i class="fa-solid fa-language"></i>
+                            </div>
+                        </div>
+                        <div class="widget-summary-col">
+                            <div class="summary">
+                                <h4 class="title text-capitalize" asp-controller="Services" asp-action="Index">Services</h4>
+                                <div class="info">
+                                    <span style="color: lightskyblue">@ViewBag.LanguageCount</span>
+                                </div>
+                            </div>
+                            <div class="summary-footer">
+                                (go to)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </a>
+        <a class="text-muted text-uppercase mb-3 mt-0 ps-0 col-lg-4 d-block" href="/Categories/Index">
+            <section class="card card-featured-left" style="border-color: orchid">
+                <div class="card-body">
+                    <div class="widget-summary">
+                        <div class="widget-summary-col widget-summary-col-icon">
+                            <div class="summary-icon" style="background-color: orchid">
+                                <i class="fa-solid fa-language"></i>
+                            </div>
+                        </div>
+                        <div class="widget-summary-col">
+                            <div class="summary">
+                                <h4 class="title text-capitalize">Categories</h4>
+                                <div class="info">
+                                    <span style="color: orchid">@ViewBag.LanguageCount</span>
+                                </div>
+                            </div>
+                            <div class="summary-footer">
+                                (go to)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </a> <a class="text-muted text-uppercase mb-3 mt-0 ps-0 col-lg-4 d-block" href="/Contact/Index  ">
+            <section class="card card-featured-left" style="border-color: orchid">
+                <div class="card-body">
+                    <div class="widget-summary">
+                        <div class="widget-summary-col widget-summary-col-icon">
+                            <div class="summary-icon" style="background-color: orchid">
+                                <i class="fa-solid fa-language"></i>
+                            </div>
+                        </div>
+                        <div class="widget-summary-col">
+                            <div class="summary">
+                                <h4 class="title text-capitalize">Contact</h4>
+                                <div class="info">
+                                    <span style="color: orchid">@ViewBag.LanguageCount</span>
+                                </div>
+                            </div>
+                            <div class="summary-footer">
+                                (go to)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </a>
+    </div>    
+
+</body>
+</html>

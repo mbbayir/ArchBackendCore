@@ -1,0 +1,47 @@
+﻿@using System.Security.Claims;
+
+<div class="nano">
+    <div class="nano-content">
+        <nav id="menu" class="nav-main" role="navigation">
+            <ul class="nav nav-main pt-2">
+                <li class="nav-item @ViewBag.AIndex">
+                    <a class="nav-link" asp-controller="Panel" asp-action="Index">
+                        <i class="fa-regular fa-house" aria-hidden="true"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Projects" asp-action="Index">
+                        <i class="fa-solid fa-house-user me-1"></i>
+                        <span>Project</span>
+                    </a>
+                </li>
+
+                    <li class="nav-item @ViewBag.AUser">
+                        <a class="nav-link " asp-controller="Services" asp-action="Index">
+                            <i class="fa-solid fa-users" aria-hidden="true"></i>
+                            <span>Services</span>
+                        </a>
+                    </li>
+                    <li class="nav-item @ViewBag.ACategory">
+                        <a class="nav-link" asp-controller="Categories" asp-action="Index">
+                            <i class="fa-sharp fa-light fa-table-cells" aria-hidden="true"></i>
+                            <span>Categories</span>
+                        </a>
+                    </li>
+                   @*  <li class="nav-item @ViewBag.ACountry">
+                        <a class="nav-link " href="#">
+                            <i class="fa-solid fa-earth-americas" aria-hidden="true"></i>
+                            <span>Countries</span>
+                        </a>
+                    </li> *@
+                    <li class="nav-item @ViewBag.ALanguage">
+                        <a class="nav-link " asp-controller="Contact" asp-action="Index">
+                        <i class="fa-solid fa-id-card" aria-hidden="true"></i>
+                        <span>Contact</span>
+                        </a>    
+                    </li>
+            </ul>
+        </nav>
+    </div>
+</div>
