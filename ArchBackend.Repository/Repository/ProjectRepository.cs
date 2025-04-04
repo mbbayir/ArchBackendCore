@@ -1,5 +1,5 @@
-﻿using ArchBackend.Core.Repositories;
-using ArchBackend.Repository.Models;
+﻿using ArchBackend.Core.Models;
+using ArchBackend.Core.Repositories;
 using ArchBackend.Repository.Repository.Generic;
 using Microsoft.EntityFrameworkCore;
 

@@ -3,9 +3,9 @@
         using System.Linq;
         using System.Text;
         using System.Threading.Tasks;
-        using ArchBackend.Repository.Models;
+using ArchBackend.Core.Models;
 
-        namespace ArchBackend.Core.Repositories
+namespace ArchBackend.Core.Repositories
         {
     public interface IProjectRepository : IGenericRepository<Project>
     {

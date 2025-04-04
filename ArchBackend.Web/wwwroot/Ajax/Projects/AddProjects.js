@@ -5,6 +5,7 @@
         var formData = new FormData();
         formData.append("Name", $('#projectName').val());
         formData.append("Description", $('#projectDescription').val());
+        formData.append("Location", $('#projectLocation').val());
         formData.append("Tag", $('#projectTag').val());
         formData.append("ProjectUrl", $('#projectUrl').val());
 
@@ -44,6 +45,7 @@
                         var row = `<tr>
                         <td>${project.name}</td>
                         <td>${project.description}</td>
+                        <td>${project.location}</td>
                         <td>${project.tag}</td>
                         <td><img src="${project.imagePath}" width="100"/></td>
                     </tr>`;
@@ -58,9 +60,4 @@
 
         loadProjects();
     });
-
-
-
-
-
 });

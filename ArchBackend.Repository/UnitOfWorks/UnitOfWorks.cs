@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using ArchBackend.Core.Models;
 using ArchBackend.Core.UnitOfWorks;
-using ArchBackend.Repository.Models;
 
 namespace ArchBackend.Repository.UnitOfWorks
 {

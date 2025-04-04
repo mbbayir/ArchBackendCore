@@ -4,7 +4,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    namespace ArchBackend.Repository.Models
+    namespace ArchBackend.Core.Models
     {
         public class BaseEntity
         {

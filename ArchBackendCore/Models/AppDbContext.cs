@@ -1,10 +1,9 @@
-﻿using ArchBackend.Core.Models.Identity;
-using ArchBackend.Repository.Models.Bridges;
-using ArchBackend.Repository.Models.Identity;
+﻿using ArchBackend.Core.Models.Bridges;
+using ArchBackend.Core.Models.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace ArchBackend.Repository.Models
+namespace ArchBackend.Core.Models
 {
     public class AppDbContext : IdentityDbContext<Users, Roles, int>
     {   

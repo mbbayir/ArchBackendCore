@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ArchBackend.Repository.Models.Bridges;
+using ArchBackend.Core.Models.Bridges;
 
-namespace ArchBackend.Repository.Models
+namespace ArchBackend.Core.Models
 {
     public class Category : BaseEntity
     {

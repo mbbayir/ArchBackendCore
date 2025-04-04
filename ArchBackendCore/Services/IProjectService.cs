@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
     using ArchBackend.Core.Models;
 using ArchBackend.Core.Service;
-using ArchBackend.Repository.Models;
 using Microsoft.AspNetCore.Http;
 
 namespace ArchBackend.Core.Services

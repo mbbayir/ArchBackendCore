@@ -4,10 +4,10 @@
     using ArchBackend.Core.Services;
     using ArchBackend.Core.Repositories;
     using ArchBackend.Core.UnitOfWorks;
-    using ArchBackend.Repository.Models;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Hosting;
+using ArchBackend.Core.Models;
 
 public class ProjectService : IProjectService
 {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ArchBackend.Repository.Models.Bridges
+namespace ArchBackend.Core.Models.Bridges
 {
     public class ProjectCategory
     {

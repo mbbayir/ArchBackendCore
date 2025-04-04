@@ -2,30 +2,52 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/Partials/_LayoutPanel.cshtml";
-
 }
 
-@section styles{
+@section styles {
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
 }
 
-<div class="container mt-4">
+<div class="container mt-5">
     <div class="row">
         <div class="col">
-            <button type="button" data-bs-toggle="modal" data-bs-target="#myModal" class="btn btn-dark custom-blue mb-3 ">Add Project</button>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#myModal" class="btn btn-dark custom-blue mb-3">Add Project</button>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
-                    <tr>
-                        <th>Project Name</th>
-                        <th>Project Description</th>
-                        <th>Project Tag </th>
-                        <th>Project Image</th>
-                    </tr>
+                        <tr>
+                            <th>Project Name</th>
+                            <th>Project Description</th>
+                            <th>Project Location</th>
+                            <th>Project Tag</th>
+                            <th>Project Image</th>
+                            <th>Actions</th>
+
+                        </tr>
                     </thead>
-                    <tbody id="projecttable"> </tbody>
+                    <tbody id="projecttable">
+                            @foreach (var project in Model)
+                            {
+                            <tr>
+                                <td>@project.Name</td>
+                                <td>@project.Description</td>
+                                <td>@project.Location</td>
+                                <td>@project.Tag</td>
+                                <td><img src="@project.ImagePath" width="50" height="50" alt="Project Image"></td>
+                                <td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm edit-btn" data-id="@project.Id">Update</button>
+                                    <button class="btn btn-danger btn-sm delete-btn" data-id="@project.Id">Delete</button>
+                                </td>
+
+                                </td>
+                            </tr>
+                            }
+                    </tbody>
+
+                     
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -51,6 +73,10 @@
                         <textarea class="form-control" id="projectDescription" name="Description" required></textarea>
                     </div>
                     <div class="mb-3">
+                        <label for="projectLocation" class="form-label">Project Location</label>
+                        <input type="text" class="form-control" id="projectLocation" name="Location" required>
+                    </div>
+                    <div class="mb-3">
                         <label for="projectTag" class="form-label">Project Tag</label>
                         <input type="text" class="form-control" id="projectTag" name="Tag" required>
                     </div>
@@ -58,12 +84,50 @@
                         <label for="projectImage" class="form-label">Project Image</label>
                         <input type="file" class="form-control" id="projectImage" name="formFile" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save Project</button>
+                    <button type="submit" class="btn btn-dark float-end">Save Project</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="~/ajax/projects/addprojects.js"></script>
+<!-- Update Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateModalLabel">Update Project</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="updateProjectForm">
+                    <input type="hidden" id="updateProjectId" name="Id">
+                    <div class="mb-3">
+                        <label for="updateProjectName" class="form-label">Project Name</label>
+                        <input type="text" class="form-control" id="updateProjectName" name="Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateProjectDescription" class="form-label">Project Description</label>
+                        <textarea class="form-control" id="updateProjectDescription" name="Description" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateProjectLocation" class="form-label">Project Location</label>
+                        <input type="text" class="form-control" id="updateProjectLocation" name="Location" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateProjectTag" class="form-label">Project Tag</label>
+                        <input type="text" class="form-control" id="updateProjectTag" name="Tag" required>
+                    </div>
+                    <button type="submit" class="btn btn-warning float-end">Update Project</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/ajax/projects/addprojects.js"></script>
+}
