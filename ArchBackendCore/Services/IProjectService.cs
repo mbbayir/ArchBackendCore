@@ -14,7 +14,7 @@ namespace ArchBackend.Core.Services
         Task<IEnumerable<Project>> GetProjectsAsync();
         Task<Project> GetProjectByIdAsync(int id);
         Task<Project> AddProjectAsync(Project project, IFormFile formFile);
-        Task<Project> UpdateProjectAsync(Project project);
+        Task<Project> UpdateProjectAsync(Project project , IFormFile formFile );
         Task<bool> DeleteProjectAsync(int id);
     }
 

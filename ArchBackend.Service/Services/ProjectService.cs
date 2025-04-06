@@ -12,9 +12,9 @@ using ArchBackend.Core.Models;
 public class ProjectService : IProjectService
 {
     private readonly IProjectRepository _projectRepository;
-    private readonly IUnitOfWorks _unitOfWork;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public ProjectService(IProjectRepository projectRepository, IUnitOfWorks unitOfWork)
+    public ProjectService(IProjectRepository projectRepository, IUnitOfWork unitOfWork)
     {
         _projectRepository = projectRepository;
         _unitOfWork = unitOfWork;
@@ -62,12 +62,41 @@ public class ProjectService : IProjectService
     }
 
 
-    public async Task<Project> UpdateProjectAsync(Project project)
+    public async Task<Project> UpdateProjectAsync(Project project, IFormFile formFile)
     {
+
+        if (project == null)
+        {
+            throw new ArgumentNullException(nameof(project), "Invalid Request: Project is null");
+        }
+
+        if (formFile != null)
+        {
+            var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+
+            if (!Directory.Exists(uploadsFolderPath))
+            {
+                Directory.CreateDirectory(uploadsFolderPath);
+            }
+
+            var filePath = Path.Combine(uploadsFolderPath, formFile.FileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await formFile.CopyToAsync(stream);
+            }
+
+            project.ImagePath = "/uploads/" + formFile.FileName;
+        }
+
+
         await _projectRepository.UpdateAsync(project);
+
         await _unitOfWork.CommitAsync();
+
         return project;
     }
+
 
     public async Task<bool> DeleteProjectAsync(int id)
     {

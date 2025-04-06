@@ -1,106 +1,118 @@
-$(document).ready(function () {
+﻿$(document).ready(function() {
+    function loadCategories() {
+        $.ajax({
+            type: 'GET',
+            url: '/Category/GetCategories',
+            success: function(categories) {
+                let tableBody = $('#categorytable');
+                tableBody.empty();
+                categories.forEach(function(category) {
+                    var row = `
+                        <tr>
+                            <td>${category.name}</td>
+                            <td>
+                                <button class="btn btn-sm btn-warning edit-btn" data-id="${category.id}">Edit</button>
+                                <button class="btn btn-sm btn-danger delete-btn" data-id="${category.id}">Delete</button>
+                            </td>
+                        </tr>`;
+                    tableBody.append(row);
+
+                });
+            },
+            error: function(xhr) {
+                console.error("Error Fetching Process", xhr.responseText);
+            }
+        });
+    }
+
+    loadCategories();
+
+    $('#categoryForm').submit(function(event) {
+        event.preventDefault();
     
-    $("#CategoryId").select2({
-        ajax: {
-            url: "/Group/GetCategorySelect",
-            dataType: 'json',
-            delay: 250,
-            data: function (params) {
-                var query = params.term || '';
-                return {
-                    q: query,
-                    page: params.page || 1
-                };
+        var category = {
+            name: $('#categoryName').val()
+        };
+    
+        $.ajax({
+            type: 'POST',
+            url: '/Category/AddCategory',
+            contentType: 'application/json',
+            data: JSON.stringify(category),
+            success: function(response) {
+                alert('Category added successfully!');
+                $('#categoryForm')[0].reset();
+                window.location.href = '/Category/Index'; // Redirect to the index page
+                // Optionally reload your table here
             },
-            processResults: function (data, params) {
-                params.page = params.page || 1;
-                return {
-                    results: $.map(data.items, function (item) {
-                        if (item.languageCode != "en") {
-                            return {
-                                id: item.id,
-                                text: item.name,
-                                languageCode: item.languageCode
-                            };
-                        }
-                    }),
-                    pagination: {
-                        more: ((params.page * 10) < data.total_count)
-                    }
-                };
-            },
-            cache: true
-        },
-        theme: "bootstrap-5",
-        width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-        placeholder: $(this).data('placeholder'),
-        allowClear: true
+            error: function(xhr) {
+                console.log("Server Error:", xhr.responseText);
+                alert('Error adding category: ' + xhr.responseText);
+            }
+        });
     });
+    
+    // Delete Category
+    $(document).on('click', '.delete-btn', function () {
+        var categoryId = $(this).data('id');
+        if (confirm("Are you sure you want to delete this category?")) {
+            $.ajax({
+                type: 'DELETE',
+                url: '/Category/DeleteCategory/' + categoryId,
+                success: function (response) {
+                    alert('Category deleted successfully!');
+                    window.location.href = '/Category/Index'; 
+                },
+                error: function (xhr) {
+                    console.log("Error deleting category:", xhr.responseText);
+                    alert('Error deleting category: ' + xhr.responseText);
+                },
+            });
+        }
+    });    
 
-
-
-    // var languageInputValues = {};
-
-    // $("#LanguageId").select2({
-    //     ajax: {
-    //         url: "/Language/GetLanguageSelect",
-    //         dataType: 'json',
-    //         delay: 250,
-    //         data: function (params) {
-    //             var query = params.term || '';
-    //             return {
-    //                 q: query,
-    //                 page: params.page || 1
-    //             };
-    //         },
-    //         processResults: function (data, params) {
-    //             params.page = params.page || 1;
-    //             return {
-    //                 results: $.map(data.items, function (item) {
-    //                     if (item.languageCode != "en") {
-    //                         return {
-    //                             id: item.id,
-    //                             text: item.name,
-    //                             languageCode: item.languageCode
-    //                         };
-    //                     }
-    //                 }),
-    //                 pagination: {
-    //                     more: ((params.page * 10) < data.total_count)
-    //                 }
-    //             };
-    //         },
-    //         cache: true
-    //     },
-    //     theme: "bootstrap-5",
-    //     width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-    //     placeholder: $(this).data('placeholder'),
-    //     allowClear: true
-    // }).on("change", function () {
-    //     var selectedData = $(this).select2('data');
-    //     var inputContainer = $('#languageInputs');
-
-    //     // Mevcut input değerlerini kaydet
-    //     $('.language-code-inputs').each(function() {
-    //         var languageCode = $(this).data('language-code');
-    //         languageInputValues[languageCode] = $(this).val();
-    //     });
-
-    //     inputContainer.empty(); // Önceki inputları temizle
-
-    //     // Seçilen her dil için bir input oluştur
-    //     selectedData.forEach(function(item) {
-    //         var inputHTML = `
-    //         <div class="col-md-6 mb-3">
-    //             <div class="form-group">
-    //                 <label for="Name_${item.languageCode}" class="form-label">Name <b class="text-danger">in ${item.languageCode}</b></label>
-    //                 <input type="text" id="Name_${item.languageCode}" data-language-code="${item.languageCode}" class="form-control language-code-inputs" placeholder="Name in ${item.text}" value="${languageInputValues[item.languageCode] || ''}" required/>
-    //             </div>
-    //         </div>`;
-    //         inputContainer.append(inputHTML);
-    //     });
-    // });
+    // Update Category
+    $(document).on('click', '.edit-btn', function () {
+        var categoryId = $(this).data('id');
+        $.ajax({
+            type: 'GET',
+            url: '/Category/GetCategoryById/' + categoryId,
+            success: function (category) {
+                $('#updateCategoryId').val(category.id);
+                $('#updateCategoryName').val(category.name);
+                $('#updateModal').modal('show');
+            },
+            error: function (xhr) {
+                console.log("Error fetching category:", xhr.responseText);
+                alert('Error fetching category: ' + xhr.responseText);
+            }
+        });
+    });
+    
+    $('#updateCategoryForm').submit(function (event) {
+        event.preventDefault();
+    
+        var updatedCategory = {
+            id: $('#updateCategoryId').val(),
+            name: $('#updateCategoryName').val()
+        };
+    
+        $.ajax({
+            type: 'PUT',
+            url: '/Category/UpdateCategory/'+ updatedCategory.id,
+            contentType: 'application/json',
+            data: JSON.stringify(updatedCategory),
+            success: function (response) {
+                alert('Category updated successfully!');
+                window.location.href = '/Category/Index';
+            },
+            error: function (xhr) {
+                console.log("Error updating category:", xhr.responseText);
+                alert('Error updating category: ' + xhr.responseText);
+            }
+        });
+    });
+    
+    
 
 });
-
-

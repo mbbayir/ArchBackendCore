@@ -5,18 +5,13 @@ using ArchBackend.Core.UnitOfWorks;
 
 namespace ArchBackend.Repository.UnitOfWorks
 {
-    public class UnitOfWorks : IUnitOfWorks
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext _context;
 
-        public UnitOfWorks(AppDbContext context)
+        public UnitOfWork(AppDbContext context)
         {
             _context = context;
-        }
-
-        public async Task<int> CommitAsync()
-        {
-            return await _context.SaveChangesAsync();
         }
 
         public void Commit()
@@ -24,9 +19,10 @@ namespace ArchBackend.Repository.UnitOfWorks
             _context.SaveChanges();
         }
 
-        async Task IUnitOfWorks.CommitAsync()
+        public async Task CommitAsync()
         {
-            await CommitAsync();
+            await _context.SaveChangesAsync();
         }
     }
+
 }

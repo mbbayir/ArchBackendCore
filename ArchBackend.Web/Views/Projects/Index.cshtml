@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/Partials/_LayoutPanel.cshtml";
 }
@@ -23,7 +22,6 @@
                             <th>Project Tag</th>
                             <th>Project Image</th>
                             <th>Actions</th>
-
                         </tr>
                     </thead>
                     <tbody id="projecttable">
@@ -36,17 +34,11 @@
                                 <td>@project.Tag</td>
                                 <td><img src="@project.ImagePath" width="50" height="50" alt="Project Image"></td>
                                 <td>
-                                <td>
-                                    <button class="btn btn-warning btn-sm edit-btn" data-id="@project.Id">Update</button>
-                                    <button class="btn btn-danger btn-sm delete-btn" data-id="@project.Id">Delete</button>
-                                </td>
-
+                                    <button class="btn btn-outline-secondary btn-sm edit-btn" data-id="@project.Id">Update</button>
+                                    <button class="btn btn-secondary btn-sm delete-btn" data-id="@project.Id">Delete</button>
                                 </td>
                             </tr>
                             }
-                    </tbody>
-
-                     
                     </tbody>
                 </table>
             </div>
@@ -92,6 +84,7 @@
 </div>
 
 <!-- Update Modal -->
+
 <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -118,13 +111,16 @@
                         <label for="updateProjectTag" class="form-label">Project Tag</label>
                         <input type="text" class="form-control" id="updateProjectTag" name="Tag" required>
                     </div>
+                    <div class="mb-3">
+                        <label for="updateProjectImage" class="form-label">Project Image</label>
+                        <input type="file" class="form-control" id="updateProjectImage" name="formFile">
+                    </div>
                     <button type="submit" class="btn btn-warning float-end">Update Project</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
 
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

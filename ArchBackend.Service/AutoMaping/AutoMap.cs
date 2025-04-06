@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ArchBackend.Core.Models;
-using ArchBackend.Core.ViewModels;
+using ArchBackend.Core.ViewModels.Category;
 using ArchBackend.Core.ViewModels.Project;
 using AutoMapper;
 

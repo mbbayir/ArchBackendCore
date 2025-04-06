@@ -17,9 +17,11 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
-builder.Services.AddScoped<IUnitOfWorks, UnitOfWorks>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
@@ -39,7 +41,7 @@ builder.Services.AddIdentity<Users, Roles>(options =>
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
 
-builder.Services.AddAutoMapper(typeof(AutoMap)); // Register AutoMapper profiles
+builder.Services.AddAutoMapper(typeof(AutoMap)); 
 
 // Add MVC Controllers
 builder.Services.AddControllersWithViews();

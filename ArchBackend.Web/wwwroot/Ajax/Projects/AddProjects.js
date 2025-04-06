@@ -1,4 +1,35 @@
 ﻿$(document).ready(function () {
+    function loadProjects() {
+        $.ajax({
+            type: 'GET',
+            url: '/Projects/GetProjects',
+            success: function (projects) {
+                console.log("Projects Loaded:", projects);
+                let tableBody = $('#projecttable');
+                tableBody.empty();
+
+                projects.forEach(function (project) {
+                    var row = `<tr>
+                        <td>${project.name}</td>
+                        <td>${project.description}</td>
+                        <td>${project.location}</td>
+                        <td>${project.tag}</td>
+                        <td><img src="${project.imagePath}" width="100"/></td>
+                        <td>
+                            <button class="btn btn-outline-secondary btn-sm edit-btn" data-id="${project.id}">Update</button>
+                        </td>
+                    </tr>`;
+                    tableBody.append(row);
+                });
+            },
+            error: function (xhr) {
+                console.log("Error fetching projects:", xhr.responseText);
+            }
+        });
+    }
+    loadProjects();
+
+    // Proje ekleme
     $('#projectForm').submit(function (event) {
         event.preventDefault();
 
@@ -7,8 +38,6 @@
         formData.append("Description", $('#projectDescription').val());
         formData.append("Location", $('#projectLocation').val());
         formData.append("Tag", $('#projectTag').val());
-        formData.append("ProjectUrl", $('#projectUrl').val());
-
         var file = $('#projectImage')[0].files[0];
         if (file) {
             formData.append("formFile", file);
@@ -21,9 +50,9 @@
             contentType: false,
             processData: false,
             success: function (response) {
-                console.log("Server Response:", response);
                 alert('Project added successfully!');
                 $('#projectForm')[0].reset();
+                window.location.href = '/Projects/Index';
             },
             error: function (xhr) {
                 console.log("Server Error:", xhr.responseText);
@@ -32,32 +61,88 @@
         });
     });
 
-    $(document).ready(function () {
-        function loadProjects() {
+    $(document).on('click', '.edit-btn', function () {
+        var projectId = $(this).data('id');
+
+        $.ajax({
+            type: 'GET',
+            url: '/Projects/GetProjectById/' + projectId, 
+            success: function (response) {
+                console.log("Project loaded:", response);
+                $('#updateProjectId').val(response.id);
+                $('#updateProjectName').val(response.name);
+                $('#updateProjectDescription').val(response.description);
+                $('#updateProjectLocation').val(response.location);
+                $('#updateProjectTag').val(response.tag);
+                $('#updateProjectImagePreview').attr('src', response.imagePath);
+                
+                $('#updateModal').modal('show');
+            },
+            error: function (xhr) {
+                console.log("Error fetching project:", xhr.responseText);
+            }
+        });
+        
+    });
+
+    $('#updateProjectForm').submit(function (event) {
+    event.preventDefault();
+    console.log("Update form submitted");
+
+    // Make sure the projectId is correctly set
+    var projectId = $('#updateProjectId').val();  // Getting the ID value from the hidden input
+
+    var formData = new FormData();
+    formData.append("Id", projectId);
+    formData.append("Name", $('#updateProjectName').val());
+    formData.append("Description", $('#updateProjectDescription').val());
+    formData.append("Location", $('#updateProjectLocation').val());
+    formData.append("Tag", $('#updateProjectTag').val());
+
+    var file = $('#updateProjectImage')[0].files[0];
+    if (file) {
+        formData.append("formFile", file);  
+    }
+    console.log($('#updateProjectImage')[0].files[0]);
+    // Ensure the correct URL is used
+    $.ajax({
+        type: 'PUT',
+        url: '/Projects/UpdateProject/' + projectId, // Using the projectId variable
+        data: formData,
+        contentType: false, // Necessary for FormData
+        processData: false, // Necessary for FormData
+        success: function (response) {
+            alert('Project updated successfully!');
+            $('#updateModal').modal('hide');
+            window.location.href = '/Projects/Index';                                                   
+        },
+        error: function (xhr) {
+            console.log("Error updating project:", xhr.responseText);
+            alert('Error updating project: ' + xhr.responseText);
+        }
+    });
+});
+
+    
+
+    $(document).on('click', '.delete-btn', function () {
+        var projectId = $(this).data('id');
+        if (confirm("Are you sure you want to delete this project?")) {
             $.ajax({
-                type: 'GET',
-                url: '/Projects/GetProjects',
-                success: function (projects) {
-                    console.log("Projects Loaded:", projects);
-                    let tableBody = $('#projecttable');
-                    tableBody.empty(); 
-                    projects.forEach(function (project) {
-                        var row = `<tr>
-                        <td>${project.name}</td>
-                        <td>${project.description}</td>
-                        <td>${project.location}</td>
-                        <td>${project.tag}</td>
-                        <td><img src="${project.imagePath}" width="100"/></td>
-                    </tr>`;
-                        tableBody.append(row);
-                    });
+                type: 'DELETE',
+                url: '/Projects/DeleteProject/' + projectId,
+                success: function (response) {
+                    alert('Project deleted successfully!');
+                    window.location.href = '/Projects/Index';
                 },
                 error: function (xhr) {
-                    console.log("Error fetching projects:", xhr.responseText);
-                }
+                    console.log("Error deleting project:", xhr.responseText);
+                    alert('Error deleting project: ' + xhr.responseText);
+                },
             });
         }
-
-        loadProjects();
     });
+
+
+
 });
