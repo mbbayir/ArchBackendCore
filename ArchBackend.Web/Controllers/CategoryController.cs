@@ -44,10 +44,12 @@ namespace ArchBackend.Web.Controllers
         }
 
 
-
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<IActionResult> UpdateCategory(int id, [FromBody] Category category)
         {
+            if (id != category.Id)
+                return BadRequest("Id mismatch");
+            
             var updatedCategory = await _categoryService.UpdateCategoryAsync(category);
             return Ok(updatedCategory);
         }

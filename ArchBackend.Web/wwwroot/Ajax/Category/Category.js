@@ -24,9 +24,7 @@
             }
         });
     }
-
     loadCategories();
-
     $('#categoryForm').submit(function(event) {
         event.preventDefault();
     
@@ -70,7 +68,6 @@
             });
         }
     });    
-
     // Update Category
     $(document).on('click', '.edit-btn', function () {
         var categoryId = $(this).data('id');
@@ -113,6 +110,4 @@
         });
     });
     
-    
-
 });

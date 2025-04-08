@@ -55,11 +55,18 @@ namespace ArchBackend.Service.Services
 
         public async Task<Category> UpdateCategoryAsync(Category category)
         {
-            await _categoryRepository.AddAsync(category);
+            var existingCategory = await _categoryRepository.GetByIdAsync(category.Id);
+            if (existingCategory == null)
+                return null;
+
+            existingCategory.Name = category.Name; // diğer alanları da güncelle
+
+            await _categoryRepository.UpdateAsync(existingCategory);
             await _unitOfWorks.CommitAsync();
-            return category;
+
+            return existingCategory;
         }
 
-       
+
     }
 }

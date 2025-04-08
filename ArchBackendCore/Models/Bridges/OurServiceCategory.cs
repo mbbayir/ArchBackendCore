@@ -6,10 +6,10 @@
 
     namespace ArchBackend.Core.Models.Bridges
     {
-        public class ServiceCategory
+        public class OurServiceCategory
         {
-            public int ServiceId { get; set; }
-            public Service Service { get; set; }
+            public int OurServiceId { get; set; }
+            public OurService OurService { get; set; }
             public int CategoryId { get; set; }
             public Category Category { get; set; }
         }

@@ -12,7 +12,7 @@ namespace ArchBackend.Core.Models
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Category> Categories { get; set; }
 
-        public DbSet<Service> Services { get; set; }
+        public DbSet<OurService> OurServices { get; set; }
 
         public DbSet<Users> Users { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
@@ -33,16 +33,16 @@ namespace ArchBackend.Core.Models
                 .WithMany(i => i.ProjectCategories)
                 .HasForeignKey(i => i.CategoryId);
 
-            modelBuilder.Entity<ServiceCategory>().HasKey(x => new { x.ServiceId, x.CategoryId });
-            modelBuilder.Entity<ServiceCategory>()
-                .HasOne<Service>(x => x.Service)
-                .WithMany(x => x.ServiceCategories)
-                .HasForeignKey(x => x.ServiceId);
+            modelBuilder.Entity<OurServiceCategory>().HasKey(x => new { x.OurServiceId, x.CategoryId });
+            modelBuilder.Entity<OurServiceCategory>()
+                .HasOne<OurService>(x => x.OurService)
+                .WithMany(x => x.OurServiceCategories)
+                .HasForeignKey(x => x.OurServiceId);
 
-            modelBuilder.Entity<ServiceCategory>()
-                .HasOne<Category>(x => x.Category)
-                .WithMany(x => x.ServiceCategories)
-                .HasForeignKey(x => x.CategoryId);
+            modelBuilder.Entity<OurServiceCategory>()
+                 .HasOne(x => x.Category)
+                 .WithMany(x => x.OurServiceCategories)
+                 .HasForeignKey(x => x.CategoryId);
 
             base.OnModelCreating(modelBuilder);
             

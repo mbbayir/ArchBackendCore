@@ -11,7 +11,7 @@ namespace ArchBackend.Core.Repositories
     {
         Task<IEnumerable<Category>> GetAllAsync();
 
-        Task<bool> UpdateAsync(Category category);
+        Task UpdateAsync(Category category);
 
         Task DeleteAsync(Category category);
     }

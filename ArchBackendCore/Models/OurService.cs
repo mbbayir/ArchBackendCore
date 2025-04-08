@@ -7,7 +7,7 @@ using ArchBackend.Core.Models.Bridges;
 
 namespace ArchBackend.Core.Models
 {
-    public class Service : BaseEntity
+    public class OurService : BaseEntity
     {
         public string Name { get; set; }
 
@@ -15,6 +15,6 @@ namespace ArchBackend.Core.Models
 
         public string Description { get; set; }
         
-        public  List<ServiceCategory> ServiceCategories { get; set; }
+        public  List<OurServiceCategory> OurServiceCategories { get; set; }
     }
 }

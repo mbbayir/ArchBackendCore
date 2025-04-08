@@ -6,13 +6,18 @@ namespace ArchBackend.Repository.Repository
 {
     public class CategoryRepository : GenericRepository<Category>, ICategoryRepository
     {
+        private readonly AppDbContext _context;
+
         public CategoryRepository(AppDbContext context) : base(context)
         {
+            _context = context;
         }
-
-        public Task<bool> UpdateAsync(Category category)
+            
+        public async Task UpdateAsync(Category category)
         {
-            throw new NotImplementedException();
+            _context.Categories.Update(category);
+            await Task.CompletedTask; 
         }
     }
+
 }
