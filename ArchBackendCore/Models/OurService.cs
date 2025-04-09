@@ -11,10 +11,7 @@ namespace ArchBackend.Core.Models
     {
         public string Name { get; set; }
 
-        public string Tag { get; set; }
-
-        public string Description { get; set; }
-        
-        public  List<OurServiceCategory> OurServiceCategories { get; set; }
+        public List<OurServiceCategory> OurServiceCategories { get; set; } = new List<OurServiceCategory>();
     }
+
 }

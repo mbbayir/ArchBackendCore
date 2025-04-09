@@ -54,7 +54,7 @@ namespace ArchBackend.Web.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateProject(int id, [FromForm] Project project, [FromForm] IFormFile formFile)
         {
-
+          
             var updatedProject = await _projectService.UpdateProjectAsync(project, formFile);
             return Ok(updatedProject);
         }

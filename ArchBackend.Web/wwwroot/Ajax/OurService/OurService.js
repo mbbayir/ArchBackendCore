@@ -1,5 +1,5 @@
-﻿
-$(document).ready(function () {
+﻿$(document).ready(function () {
+    // Load services and display them in the table
     function loadOurServices() {
         $.ajax({
             type: "GET",
@@ -8,6 +8,7 @@ $(document).ready(function () {
                 let tableBody = $('#ourservicetable');
                 tableBody.empty();
 
+                // Append each service to the table
                 ourservices.forEach(function (ourservice) {
                     var row = `
                         <tr>
@@ -26,33 +27,71 @@ $(document).ready(function () {
         });
     }
 
+    loadOurServices(); // Initial load of services
 
-    loadOurServices();
+    // Add new service
+    $('#ourserviceForm').submit(function (e) {
+        e.preventDefault();
 
-        $('#ourserviceForm').submit(function (event) {
-            event.preventDefault();
+        var selectedCategoryId = parseInt($('#ourServiceCategory').val());
 
-            var ourservice = {
-                Name: $('#ourserviceName').val()
-            };
+        var ourservice = {
+            Name: $('#ourserviceName').val(),
+            OurServiceCategories: [
+                { categoryId: selectedCategoryId }
+            ]
+        };
+        $.ajax({
+            url: '/Services/AddOurServiceAsync',
+            type: 'POST',
+            data: JSON.stringify(ourservice),
+            contentType: 'application/json',
+            success: function (response) {
+                console.log('Add Service successful', response);
+                location.reload(); // Refresh the page to show updated list
+            },
+            error: function (xhr) {
+                console.error('Error:', xhr.responseText);
+            }
+        });
+    });
 
+    // Delete service
+    $(document).on('click', '.delete-btn', function () {
+        var ourServiceId = $(this).data('id'); // Get the service ID from the button
+    
+        if (confirm('Are you sure you want to delete this service?')) {
             $.ajax({
-                type: 'POST',
-                url: '/Services/AddOurServiceAsync',
-                contentType: 'application/json',
-                data: JSON.stringify(ourservice),
+                url: '/Services/DeleteOurServiceAsync/' + ourServiceId, // Append ID to the URL
+                type: 'DELETE', // Use DELETE HTTP method
                 success: function (response) {
-                    alert('OurService Added Successfully!');
-                    $('#ourserviceForm')[0].reset();
-                    window.location.href='/Services/Index'
+                    console.log('Deleted Our Service', response);
+                    loadOurServices(); // Reload the list of services
                 },
                 error: function (xhr) {
                     console.log('Error:', xhr.responseText);
-                    alert('Failed to add OurService.');
                 }
             });
-        });
-
+        }
+    });
+    
 });
 
+// Update service
 
+$(document).on('click', '.edit-btn', function () {
+    var ourServiceId = $(this).data('id'); // Get the service ID from the button
+    $.ajax({
+        url: '/Services/DeleteOurServiceAsync/' + ourServiceId,
+        type: 'GET',
+        success: function (ourservice) {
+            $('#updateOurServiceId').val(ourservice.id);
+            $('#updateOurServiceName').val(ourservice.name);
+            $('#updateOurServiceModal').modal('show'); // Show the modal
+        },
+        error: function (xhr) {
+            console.log('Error:', xhr.responseText);
+        }
+    });
+}
+);

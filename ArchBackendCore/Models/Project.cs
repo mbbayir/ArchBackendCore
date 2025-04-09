@@ -17,9 +17,6 @@ namespace ArchBackend.Core.Models
 
         public string Tag { get; set; }
 
-
-
-
         public string ImagePath { get; set; }
 
         public List<ProjectCategory> ProjectCategories { get; set; }
