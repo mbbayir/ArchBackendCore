@@ -22,8 +22,6 @@ namespace ArchBackend.Service.AutoMap
 
             CreateMap<OurServiceViewModel, OurService>();
 
-
-
         }
     }
 }

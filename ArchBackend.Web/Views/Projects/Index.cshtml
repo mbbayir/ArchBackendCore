@@ -20,6 +20,7 @@
                             <th>Project Description</th>
                             <th>Project Location</th>
                             <th>Project Tag</th>
+                            <th>Project Category</th>
                             <th>Project Image</th>
                             <th>Actions</th>
                         </tr>
@@ -32,7 +33,9 @@
                                 <td>@project.Description</td>
                                 <td>@project.Location</td>
                                 <td>@project.Tag</td>
+                                <td></td>
                                 <td><img src="@project.ImagePath" width="50" height="50" alt="Project Image"></td>
+
                                 <td>
                                     <button class="btn btn-outline-secondary btn-sm edit-btn" data-id="@project.Id">Update</button>
                                     <button class="btn btn-secondary btn-sm delete-btn" data-id="@project.Id">Delete</button>
@@ -73,6 +76,15 @@
                         <input type="text" class="form-control" id="projectTag" name="Tag" required>
                     </div>
                     <div class="mb-3">
+                        <label for="projectCategory" class="form-label">Project Category</label>
+                        <select class="form-select" id="projectCategory" name="CategoryId" required>
+                            <!-- Kategoriler buraya yüklenecek -->
+                        </select>
+                    </div>
+
+
+
+                    <div class="mb-3">
                         <label for="projectImage" class="form-label">Project Image</label>
                         <input type="file" class="form-control" id="projectImage" name="formFile" required>
                     </div>
@@ -111,10 +123,19 @@
                         <label for="updateProjectTag" class="form-label">Project Tag</label>
                         <input type="text" class="form-control" id="updateProjectTag" name="Tag" required>
                     </div>
+                    <select class="form-select" id="updateProjectCategory" name="CategoryId" required></select> 
+                    <div class="mb-3">
+                        <label for="updateProjectCategory" class="form-label">Project Category</label>
+                        <select class="form-select" id="updateProjectCategory" name="CategoryId" required>
+                            <!-- Kategoriler buraya yüklenecek -->
+                        </select>
+                    </div>
+
                     <div class="mb-3">
                         <label for="updateProjectImage" class="form-label">Project Image</label>
                         <input type="file" class="form-control" id="updateProjectImage" name="formFile">
                     </div>
+
                     <button type="submit" class="btn btn-warning float-end">Update Project</button>
                 </form>
             </div>

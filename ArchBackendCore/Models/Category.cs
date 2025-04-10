@@ -12,7 +12,6 @@ namespace ArchBackend.Core.Models
         public string Name { get; set; }
 
         public List<ProjectCategory> ProjectCategories { get; set; }
-        public List<OurServiceCategory> OurServiceCategories { get; set; }
 
     }
 }

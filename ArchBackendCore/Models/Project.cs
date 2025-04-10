@@ -20,6 +20,7 @@ namespace ArchBackend.Core.Models
         public string ImagePath { get; set; }
 
         public List<ProjectCategory> ProjectCategories { get; set; }
+        public List<OurServiceProject> OurServiceProjects { get; set; }
 
         public List<Picture> Picture { get; set; }
     }

@@ -3,6 +3,8 @@ using ArchBackend.Core.Services;
 using ArchBackend.Service.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 
 [Route("Services")]
 public class ServicesController : Controller
@@ -25,45 +27,38 @@ public class ServicesController : Controller
         return View(services);
     }
 
-    [HttpGet("GetServices")]
-    public async Task<IActionResult> GetServices()
+    [HttpGet("GetOurServiceAsync")]
+    public async Task<IActionResult> GetOurServiceAsync()
     {
         var services = await _ourService.GetOurServiceAsync();
         return Json(services);
     }
 
+    [HttpGet("GetServiceById/{id}")]
+    public async Task<IActionResult> GetServiceById(int id)
+    {
+        var service = await _ourService.GetOurServiceIdAsync(id);
+        return Ok(service);
+    }
+
+
     [HttpPost("AddOurServiceAsync")]
     public async Task<IActionResult> AddOurServiceAsync([FromBody] ArchBackend.Core.Models.OurService ourService)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
-        try
-        {
-            var createdOurService = await _ourService.AddOurServiceAsync(ourService);
-            return Ok(createdOurService);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, ex.Message);
-        }
+        var createdService = await _ourService.AddOurServiceAsync(ourService);
+        return Ok(createdService);
     }
 
-    [HttpPut("UpdateOurServiceAsync")]
-    public async Task<IActionResult> UpdateOurServiceAsync(int id , [FromBody] ArchBackend.Core.Models.OurService ourService)
+
+    [HttpPut("UpdateServiceAsync")]
+    public async Task<IActionResult> UpdateServiceAsync([FromBody] ArchBackend.Core.Models.OurService ourService)
     {
-        if (id != ourService.Id)
-            return BadRequest("Bad Request");
-        var updatedOurService = _ourService.UpdateOurServiceAsync(ourService);
-        return Ok(updatedOurService);
+        var updatedService = await _ourService.UpdateOurServiceAsync(ourService);
+        return Ok(updatedService);
     }
 
 
-
-
-    [HttpDelete("{id}")]
+    [HttpDelete("DeleteOurServiceAsync/{id}")]
     public async Task<IActionResult> DeleteOurServiceAsync(int id)
     {
         var deletedOurService = await _ourService.DeleteOurServiceAsync(id);

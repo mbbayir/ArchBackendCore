@@ -4,6 +4,7 @@ using ArchBackend.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArchBackend.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250410075407_11")]
+    partial class _11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,17 +25,19 @@ namespace ArchBackend.Repository.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ArchBackend.Core.Models.Bridges.OurServiceProject", b =>
+            modelBuilder.Entity("ArchBackend.Core.Models.Bridges.OurServiceCategory", b =>
                 {
                     b.Property<int>("OurServiceId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProjectId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.HasKey("OurServiceId", "ProjectId");
+                    b.HasKey("OurServiceId", "CategoryId");
 
-                    b.ToTable("OurServiceProject");
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("OurServiceCategory");
                 });
 
             modelBuilder.Entity("ArchBackend.Core.Models.Bridges.ProjectCategory", b =>
@@ -408,23 +413,23 @@ namespace ArchBackend.Repository.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ArchBackend.Core.Models.Bridges.OurServiceProject", b =>
+            modelBuilder.Entity("ArchBackend.Core.Models.Bridges.OurServiceCategory", b =>
                 {
+                    b.HasOne("ArchBackend.Core.Models.Category", "Category")
+                        .WithMany("OurServiceCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ArchBackend.Core.Models.OurService", "OurService")
-                        .WithMany("OurServiceProjects")
+                        .WithMany("OurServiceCategories")
                         .HasForeignKey("OurServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ArchBackend.Core.Models.Project", "Project")
-                        .WithMany("OurServiceProjects")
-                        .HasForeignKey("OurServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Category");
 
                     b.Navigation("OurService");
-
-                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("ArchBackend.Core.Models.Bridges.ProjectCategory", b =>
@@ -510,18 +515,18 @@ namespace ArchBackend.Repository.Migrations
 
             modelBuilder.Entity("ArchBackend.Core.Models.Category", b =>
                 {
+                    b.Navigation("OurServiceCategories");
+
                     b.Navigation("ProjectCategories");
                 });
 
             modelBuilder.Entity("ArchBackend.Core.Models.OurService", b =>
                 {
-                    b.Navigation("OurServiceProjects");
+                    b.Navigation("OurServiceCategories");
                 });
 
             modelBuilder.Entity("ArchBackend.Core.Models.Project", b =>
                 {
-                    b.Navigation("OurServiceProjects");
-
                     b.Navigation("Picture");
 
                     b.Navigation("ProjectCategories");

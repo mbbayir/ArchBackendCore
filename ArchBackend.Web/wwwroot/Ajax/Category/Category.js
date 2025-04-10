@@ -25,25 +25,25 @@
         });
     }
     loadCategories();
-    $('#categoryForm').submit(function(event) {
+    $('#categoryForm').submit(function (event) {
         event.preventDefault();
-    
+
         var category = {
             name: $('#categoryName').val()
         };
-    
+
         $.ajax({
             type: 'POST',
             url: '/Category/AddCategory',
             contentType: 'application/json',
             data: JSON.stringify(category),
-            success: function(response) {
+            success: function (response) {
                 alert('Category added successfully!');
                 $('#categoryForm')[0].reset();
-                window.location.href = '/Category/Index'; // Redirect to the index page
-                // Optionally reload your table here
+                location.reload();
+
             },
-            error: function(xhr) {
+            error: function (xhr) { // This line was missing a comma in your original code
                 console.log("Server Error:", xhr.responseText);
                 alert('Error adding category: ' + xhr.responseText);
             }
@@ -55,11 +55,11 @@
         var categoryId = $(this).data('id');
         if (confirm("Are you sure you want to delete this category?")) {
             $.ajax({
-                type: 'DELETE',
                 url: '/Category/DeleteCategory/' + categoryId,
+                type: 'DELETE',
                 success: function (response) {
                     alert('Category deleted successfully!');
-                    window.location.href = '/Category/Index'; 
+                    location.reload(); 
                 },
                 error: function (xhr) {
                     console.log("Error deleting category:", xhr.responseText);
@@ -91,23 +91,23 @@
     
         var updatedCategory = {
             id: $('#updateCategoryId').val(),
-            name: $('#updateCategoryName').val()
-        };
+                name: $('#updateCategoryName').val()
+            };
     
-        $.ajax({
-            type: 'PUT',
-            url: '/Category/UpdateCategory/'+ updatedCategory.id,
-            contentType: 'application/json',
-            data: JSON.stringify(updatedCategory),
-            success: function (response) {
-                alert('Category updated successfully!');
-                window.location.href = '/Category/Index';
-            },
-            error: function (xhr) {
-                console.log("Error updating category:", xhr.responseText);
-                alert('Error updating category: ' + xhr.responseText);
-            }
+            $.ajax({
+                type: 'PUT',
+                url: '/Category/UpdateCategory/'+ updatedCategory.id,
+                contentType: 'application/json',
+                data: JSON.stringify(updatedCategory),
+                success: function (response) {
+                    alert('Category updated successfully!');
+                    location.reload();
+                },
+                error: function (xhr) {
+                    console.log("Error updating category:", xhr.responseText);
+                    alert('Error updating category: ' + xhr.responseText);
+                }
+            });
         });
-    });
     
 });

@@ -33,16 +33,17 @@ namespace ArchBackend.Core.Models
                 .WithMany(i => i.ProjectCategories)
                 .HasForeignKey(i => i.CategoryId);
 
-            modelBuilder.Entity<OurServiceCategory>().HasKey(x => new { x.OurServiceId, x.CategoryId });
-            modelBuilder.Entity<OurServiceCategory>()
+            modelBuilder.Entity<OurServiceProject>().HasKey(x => new { x.OurServiceId, x.ProjectId });
+            modelBuilder.Entity<OurServiceProject>()
                 .HasOne<OurService>(x => x.OurService)
-                .WithMany(x => x.OurServiceCategories)
+                .WithMany(x => x.OurServiceProjects)
                 .HasForeignKey(x => x.OurServiceId);
 
-            modelBuilder.Entity<OurServiceCategory>()
-                 .HasOne(x => x.Category)
-                 .WithMany(x => x.OurServiceCategories)
-                 .HasForeignKey(x => x.CategoryId);
+            modelBuilder.Entity<OurServiceProject>()
+                 .HasOne(x => x.Project)
+                 .WithMany(x => x.OurServiceProjects)
+                 .HasForeignKey(x => x.OurServiceId);
+
 
             base.OnModelCreating(modelBuilder);
             

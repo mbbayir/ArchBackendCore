@@ -35,12 +35,12 @@ namespace ArchBackend.Service.Services
 
         public async Task<Core.Models.OurService> AddOurServiceAsync(Core.Models.OurService ourService)
         {
-            await _ourServiceRepository.AddAsync(ourService);
+
+           await _ourServiceRepository.AddAsync(ourService);
             await _unitOfWork.CommitAsync();
-            return ourService; 
+            return ourService;
 
         }
-            
         public async Task<bool> DeleteOurServiceAsync(int id)
         {
             var ourservice = await _ourServiceRepository.GetByIdAsync(id);
@@ -55,7 +55,13 @@ namespace ArchBackend.Service.Services
        
         public Task<Core.Models.OurService> UpdateOurServiceAsync(Core.Models.OurService ourService)
         {
-            throw new NotImplementedException();
+            var ourservice = _ourServiceRepository.GetByIdAsync(ourService.Id);
+            if (ourservice == null)
+                return null;
+            _ourServiceRepository.UpdateAsync(ourService);
+            _unitOfWork.CommitAsync();
+            return ourservice;
+
         }
     }
 }

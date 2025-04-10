@@ -10,8 +10,7 @@ namespace ArchBackend.Core.Models
     public class OurService : BaseEntity
     {
         public string Name { get; set; }
+        public List<OurServiceProject> OurServiceProjects { get; set; }
 
-        public List<OurServiceCategory> OurServiceCategories { get; set; } = new List<OurServiceCategory>();
     }
-
 }

@@ -14,10 +14,8 @@
 @section Scripts {
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="~/ajax/ourservice/ourservice.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
-
+	<script src="~/ajax/ourservice/ourservice.js"></script>
 }
 
 
@@ -41,7 +39,7 @@
                             <tr>
                                 <td>@ourService.Name</td>
                                 <td>
-                                    <button class="btn btn-outline btn-sm edit-btn" data="@ourService.Id">Update</button>
+                                    <button class="btn btn-outline btn-sm edit-btn" data-id="@ourService.Id">Update</button>
                                     <button class="btn btn-sm btn-danger delete-btn" data-id="@ourService.Id">Delete</button>
                                 </td>
                             </tr>
@@ -67,16 +65,7 @@
                     <div class="mb-3">
                         <label for="ourserviceName" class="form-label">OurService Name</label>
                         <input type="text" class="form-control" id="ourserviceName" name="Name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="ourServiceCategory" class="form-label">Category</label>
-                        <select class="form-select" id="ourServiceCategory">
-                            <option value="1">Category 1</option>
-                            <option value="2">Category 2</option>
-                            <!-- Gerçek kategoriler backend'den dinamik olarak çekilebilir -->
-                        </select>
-                    </div>
-
+                    </div>  
                     <button type="submit" class="btn btn-dark float-end">Save OurService</button>
                 </form>
             </div>
@@ -94,11 +83,12 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="updateOurserviceForm">
-                    <input type="hidden" id="updateOurServiceId" name="Id">
+                <form id="updateOurServiceForm">
+                    <!-- düzeltildi -->
+                    <input type="hidden" id="updateourServiceId" name="Id"> <!-- düzeltildi -->
                     <div class="mb-3">
-                        <label for="updateOurServiceName" class="form-label">OurService Name</label>
-                        <input type="text" class="form-control" id="ourserviceName" name="Name">
+                        <label for="updateourServiceName" class="form-label">OurService Name</label>
+                        <input type="text" class="form-control" id="updateourServiceName" name="Name">
                     </div>
                     <button type="submit" class="btn btn-warning float-end">Update OurService</button>
                 </form>
@@ -106,3 +96,4 @@
         </div>
     </div>
 </div>
+
