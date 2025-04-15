@@ -1,4 +1,5 @@
-﻿@{
+﻿@using ArchBackend.Core.Models
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/Partials/_LayoutPanel.cshtml";
 }
@@ -6,145 +7,244 @@
 @section styles {
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+
 }
-
-<div class="container mt-5">
-    <div class="row">
-        <div class="col">
-            <button type="button" data-bs-toggle="modal" data-bs-target="#myModal" class="btn btn-dark custom-blue mb-3">Add Project</button>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Project Name</th>
-                            <th>Project Description</th>
-                            <th>Project Location</th>
-                            <th>Project Tag</th>
-                            <th>Project Category</th>
-                            <th>Project Image</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="projecttable">
-                            @foreach (var project in Model)
-                            {
-                            <tr>
-                                <td>@project.Name</td>
-                                <td>@project.Description</td>
-                                <td>@project.Location</td>
-                                <td>@project.Tag</td>
-                                <td></td>
-                                <td><img src="@project.ImagePath" width="50" height="50" alt="Project Image"></td>
-
-                                <td>
-                                    <button class="btn btn-outline-secondary btn-sm edit-btn" data-id="@project.Id">Update</button>
-                                    <button class="btn btn-secondary btn-sm delete-btn" data-id="@project.Id">Delete</button>
-                                </td>
-                            </tr>
-                            }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">Add New Project</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="projectForm" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label for="projectName" class="form-label">Project Name</label>
-                        <input type="text" class="form-control" id="projectName" name="Name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="projectDescription" class="form-label">Project Description</label>
-                        <textarea class="form-control" id="projectDescription" name="Description" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="projectLocation" class="form-label">Project Location</label>
-                        <input type="text" class="form-control" id="projectLocation" name="Location" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="projectTag" class="form-label">Project Tag</label>
-                        <input type="text" class="form-control" id="projectTag" name="Tag" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="projectCategory" class="form-label">Project Category</label>
-                        <select class="form-select" id="projectCategory" name="CategoryId" required>
-                            <!-- Kategoriler buraya yüklenecek -->
-                        </select>
-                    </div>
-
-
-
-                    <div class="mb-3">
-                        <label for="projectImage" class="form-label">Project Image</label>
-                        <input type="file" class="form-control" id="projectImage" name="formFile" required>
-                    </div>
-                    <button type="submit" class="btn btn-dark float-end">Save Project</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Update Modal -->
-
-<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="updateModalLabel">Update Project</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="updateProjectForm">
-                    <input type="hidden" id="updateProjectId" name="Id">
-                    <div class="mb-3">
-                        <label for="updateProjectName" class="form-label">Project Name</label>
-                        <input type="text" class="form-control" id="updateProjectName" name="Name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="updateProjectDescription" class="form-label">Project Description</label>
-                        <textarea class="form-control" id="updateProjectDescription" name="Description" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="updateProjectLocation" class="form-label">Project Location</label>
-                        <input type="text" class="form-control" id="updateProjectLocation" name="Location" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="updateProjectTag" class="form-label">Project Tag</label>
-                        <input type="text" class="form-control" id="updateProjectTag" name="Tag" required>
-                    </div>
-                    <select class="form-select" id="updateProjectCategory" name="CategoryId" required></select> 
-                    <div class="mb-3">
-                        <label for="updateProjectCategory" class="form-label">Project Category</label>
-                        <select class="form-select" id="updateProjectCategory" name="CategoryId" required>
-                            <!-- Kategoriler buraya yüklenecek -->
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="updateProjectImage" class="form-label">Project Image</label>
-                        <input type="file" class="form-control" id="updateProjectImage" name="formFile">
-                    </div>
-
-                    <button type="submit" class="btn btn-warning float-end">Update Project</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/ajax/projects/addprojects.js"></script>
+	<script src="~/ajax/projects/addprojects.js"></script>
 }
+
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+       <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#myModal">
+            <i class="bi bi-plus-circle me-3"></i> Add Project
+        </button>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr class="text-uppercase small text-secondary">
+                    <th>Project</th>
+                    <th>Description</th>
+                    <th>Location</th>
+                    <th>Tag</th>
+                    <th>Category</th>
+                    <th>Services</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="projecttable">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Add Project Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content shadow-lg border-0 rounded-4">
+            <div class="modal-header btn btn-dark text-white rounded-top-4">
+                <h5 class="modal-title fw-semibold" id="modalTitle">Add New Project</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-4 py-3">
+                <form id="projectForm" enctype="multipart/form-data" class="row g-3">
+                    <div class="col-md-6">
+                        <label for="projectName" class="form-label">Project Name</label>
+                        <input type="text" class="form-control" id="projectName" name="Name" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="projectLocation" class="form-label">Project Location</label>
+                        <input type="text" class="form-control" id="projectLocation" name="Location" required>
+                    </div>
+                    <div class="col-12">
+                        <label for="projectDescription" class="form-label">Project Description</label>
+                        <textarea class="form-control" id="projectDescription" name="Description" rows="3" required></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="projectTag" class="form-label">Project Tag</label>
+                        <input type="text" class="form-control" id="projectTag" name="Tag" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="projectImage" class="form-label">Project Image</label>
+                        <input type="file" class="form-control" id="projectImage" name="formFile" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="projectCategory" class="form-label">Project Category</label>
+                        <select class="form-select" id="projectCategory" name="CategoryId" required multiple>
+                            @foreach (var category in ViewBag.Categories as List<Category>)
+                            {
+                                <option value="@category.Id">@category.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ourserviceProjects" class="form-label">Project Services</label>
+                        <select class="form-select" id="ourserviceProjects" name="ServiceId" required multiple>
+                            @foreach (var service in ViewBag.OurServices as List<OurService>)
+                            {
+                                <option value="@service.Id">@service.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-12 text-end">
+                        <button type="submit" class="btn btn-success px-4">Save Project</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content shadow-lg border-0 rounded-4">
+            <div class="modal-header bg-primary text-white rounded-top-4">
+                <h5 class="modal-title fw-semibold" id="modalTitle">Add New Project</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-4 py-3">
+                <form id="projectForm" enctype="multipart/form-data" class="row g-3">
+                    <div class="col-md-6">
+                        <label for="projectName" class="form-label">Project Name</label>
+                        <input type="text" class="form-control" id="projectName" name="Name" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="projectLocation" class="form-label">Project Location</label>
+                        <input type="text" class="form-control" id="projectLocation" name="Location" required>
+                    </div>
+                    <div class="col-12">
+                        <label for="projectDescription" class="form-label">Project Description</label>
+                        <textarea class="form-control" id="projectDescription" name="Description" rows="3" required></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="projectTag" class="form-label">Project Tag</label>
+                        <input type="text" class="form-control" id="projectTag" name="Tag" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="projectImage" class="form-label">Project Image</label>
+                        <input type="file" class="form-control" id="projectImage" name="formFile" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="projectCategory" class="form-label">Project Category</label>
+                        <select class="form-select" id="projectCategory" name="CategoryId" required multiple>
+                            @foreach (var category in ViewBag.Categories as List<Category>)
+                            {
+                                <option value="@category.Id">@category.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ourserviceProjects" class="form-label">Project Services</label>
+                        <select class="form-select" id="ourserviceProjects" name="ServiceId" required multiple>
+                            @foreach (var service in ViewBag.OurServices as List<OurService>)
+                            {
+                                <option value="@service.Id">@service.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-12 text-end">
+                        <button type="submit" class="btn btn-success px-4">Save Project</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header btn btn-light">
+                <h5 class="modal-title fw-bold text-dark" id="updateModalLabel">
+                    <i class="fas fa-edit me-2"></i> Update Project
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="updateProjectForm" class="form-horizontal form-bordered row g-3">
+
+                    <input type="hidden" id="updateProjectId" name="Id">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="updateProjectName" class="control-label">Project Name</label>
+                            <input type="text" class="form-control" id="updateProjectName" name="Name" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="updateProjectLocation" class="control-label">Project Location</label>
+                            <input type="text" class="form-control" id="updateProjectLocation" name="Location" required>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="updateProjectDescription" class="control-label">Project Description</label>
+                            <textarea class="form-control" id="updateProjectDescription" name="Description" rows="3" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="updateProjectTag" class="control-label">Project Tag</label>
+                            <input type="text" class="form-control" id="updateProjectTag" name="Tag" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="updateProjectImage" class="control-label">Project Image</label>
+                            <input type="file" class="form-control" id="updateProjectImage" name="formFile">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="updateProjectCategory" class="control-label">Project Category</label>
+                            <select class="form-control populate" id="updateProjectCategory" name="CategoryId" multiple required>
+                                @foreach (var category in ViewBag.Categories as List<Category>)
+                                {
+                                    <option value="@category.Id">@category.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="updateProjectService" class="control-label">Project Services</label>
+                            <select class="form-control populate" id="updateProjectService" name="ServiceId" multiple required>
+                                @foreach (var service in ViewBag.OurServices as List<OurService>)
+                                {
+                                    <option value="@service.Id">@service.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-12 text-end">
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-save me-1"></i> Update Project
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

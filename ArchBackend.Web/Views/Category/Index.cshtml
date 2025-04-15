@@ -6,53 +6,64 @@
 @section styles {
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+
+
 }
 
 @section Scripts {
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
+
     <script src="~/ajax/category/category.js"></script>
 }
 
 @model IEnumerable<ArchBackend.Core.Models.Category>
 
 <div class="container mt-5">
-    <div class="row">
-        <div class="col">
-            <button type="button" data-bs-toggle="modal" data-bs-target="#myModal" class="btn btn-dark custom-blue mb-3">Add Category</button>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Category Name</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="categorytable">
-                        @foreach (var category in Model)
-                        {
-                            <tr>
-                                <td>@category.Name</td>
-                                <td>
-                                    <button class="btn btn-outline btn-sm edit-btn" data-id="@category.Id">Update</button>
-                                    <button class="btn btn-secondary btn-sm delete-btn" data-id="@category.Id">Delete</button>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#myModal">
+            <i class="bi bi-plus-circle me-1"></i> Add Category
+        </button>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr class="text-uppercase small text-muted">
+                    <th>Category Name</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="categorytable">
+                @foreach (var category in Model)
+                {
+                    <tr>
+                        <td>@category.Name</td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-outline-primary edit-btn me-1" data-id="@category.Id">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger delete-btn" data-id="@category.Id">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
 
 <!-- Add Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow border-0 rounded-3">
+            <div class="modal-header bg-primary text-white">
                 <h5 class="modal-title" id="modalTitle">Add New Category</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="categoryForm" enctype="multipart/form-data">
@@ -60,19 +71,20 @@
                         <label for="categoryName" class="form-label">Category Name</label>
                         <input type="text" class="form-control" id="categoryName" name="Name" required>
                     </div>
-                    <button type="submit" class="btn btn-dark float-end">Save Category</button>
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Update Modal-->
-
+<!-- Update Modal -->
 <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow border-0 rounded-3">
+            <div class="modal-header btn btn-light">
                 <h5 class="modal-title" id="updateModalLabel">Update Category</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -83,8 +95,11 @@
                         <label for="updateCategoryName" class="form-label">Category Name</label>
                         <input type="text" class="form-control" id="updateCategoryName" name="Name" required>
                     </div>
-                  
-                    <button type="submit" class="btn btn-warning float-end">Update Category</button>
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-save me-1"></i> Update Category
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

@@ -1,10 +1,12 @@
 ﻿using ArchBackend.Core.Models;
 using ArchBackend.Core.Services;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArchBackend.Web.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;

@@ -1,4 +1,5 @@
-﻿$(document).ready(function() {
+﻿$(document).ready(function () {
+
     function loadCategories() {
         $.ajax({
             type: 'GET',
@@ -25,6 +26,7 @@
         });
     }
     loadCategories();
+
     $('#categoryForm').submit(function (event) {
         event.preventDefault();
 

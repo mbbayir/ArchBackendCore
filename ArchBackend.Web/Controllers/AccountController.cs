@@ -3,9 +3,11 @@ using ArchBackend.Core.ViewModels;
 using ArchBackend.Core.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ArchBackend.Web.Controllers
 {
+    
     public class AccountController : Controller
     {
         private readonly UserManager<Users> _userManager;

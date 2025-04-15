@@ -1,18 +1,15 @@
-﻿    using ArchBackend.Core.Models.Identity;
-    using ArchBackend.Core.Models;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
-    using ArchBackend.Core.Services;
-    using ArchBackend.Service.Services;
-    using ArchBackend.Core.Repositories;
-    using ArchBackend.Core.UnitOfWorks;
-    using ArchBackend.Repository.UnitOfWorks;
-    using ArchBackend.Repository.Repository;
-    using ArchBackend.Service.AutoMap;
-    using Microsoft.AspNetCore.Hosting;
+﻿using System.Text.Json.Serialization;
+using ArchBackend.Core.Models;
+using ArchBackend.Core.Models.Identity;
+using ArchBackend.Core.Repositories;
+using ArchBackend.Core.Services;
+using ArchBackend.Core.UnitOfWorks;
+using ArchBackend.Repository.Repository;
+using ArchBackend.Repository.UnitOfWorks;
+using ArchBackend.Service.AutoMap;
+using ArchBackend.Service.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,12 +21,15 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IOurServiceRepository, OurServiceRepository>();
 builder.Services.AddScoped<IOurService, ArchBackend.Service.Services.OurService>();
-    
+
+
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    options.UseSqlServer(connectionString, b => b.MigrationsAssembly("ArchBackend.Repository"));
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
+        b => b.MigrationsAssembly("ArchBackend.Repository"));
 });
+
 
 builder.Services.AddIdentity<Users, Roles>(options =>
 {
@@ -43,14 +43,50 @@ builder.Services.AddIdentity<Users, Roles>(options =>
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
 
-builder.Services.AddAutoMapper(typeof(AutoMap)); 
+builder.Services.AddControllers()
+    .AddJsonOptions(x =>
+    {
+        x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+        x.JsonSerializerOptions.WriteIndented = true;
+    });
 
-// Add MVC Controllers
+builder.Services.AddAutoMapper(typeof(AutoMap));
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login"; 
+    options.AccessDeniedPath = "/Account/AccessDenied"; 
+    options.SlidingExpiration = true;
+    options.ExpireTimeSpan = TimeSpan.FromDays(30);
+});
+
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admin", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+    });
+});
+
+
+builder.Services.AddCors(opt=>
+{
+    opt.AddPolicy("CorsPolicy", builder =>
+    {
+        builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
+
 builder.Services.AddControllersWithViews();
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -58,7 +94,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles(); // Ensure static files can be served
+app.UseStaticFiles(); 
 
 app.UseRouting();
 

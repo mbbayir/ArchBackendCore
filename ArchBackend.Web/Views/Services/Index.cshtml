@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/Partials/_LayoutPanel.cshtml";
 }
@@ -8,6 +7,8 @@
 @section styles {
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
 }
 
 
@@ -15,85 +16,92 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script src="~/ajax/ourservice/ourservice.js"></script>
+    <script src="~/ajax/ourservice/ourservice.js"></script>
 }
 
 
 @model IEnumerable<ArchBackend.Core.Models.OurService>
-
 <div class="container mt-5">
-    <div class="row">
-        <div class="col">
-            <button type="button" data-bs-toggle="modal" data-bs-target="#myModal" class="btn btn-dark custom-blue mb-3">Add OurService</button>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>OurService Name</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ourservicetable">
-                        @foreach (var ourService in Model)
-                        {
-                            <tr>
-                                <td>@ourService.Name</td>
-                                <td>
-                                    <button class="btn btn-outline btn-sm edit-btn" data-id="@ourService.Id">Update</button>
-                                    <button class="btn btn-sm btn-danger delete-btn" data-id="@ourService.Id">Delete</button>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <button type="button" data-bs-toggle="modal" data-bs-target="#addOurServiceModal" class="btn btn-dark">
+            <i class="bi bi-plus-circle me-3"></i> Add OurService
+        </button>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr class="text-uppercase small text-secondary">
+                    <th>OurService Name</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="ourservicetable">
+                @foreach (var ourService in Model)
+                {
+                    <tr>
+                        <td>@ourService.Name</td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-outline-primary edit-btn me-1" data-id="@ourService.Id">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger delete-btn" data-id="@ourService.Id">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
-
 
 <!-- Add Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">Add New OurService</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="modal fade" id="addOurServiceModal" tabindex="-1" aria-labelledby="addOurServiceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow-lg border-0 rounded-4">
+            <div class="modal-header btn btn-dark text-white rounded-top-4">
+                <h5 class="modal-title fw-semibold" id="addOurServiceModalLabel">Add New OurService</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body px-4 py-3">
                 <form id="ourserviceForm">
                     <div class="mb-3">
-                        <label for="ourserviceName" class="form-label">OurService Name</label>
-                        <input type="text" class="form-control" id="ourserviceName" name="Name">
-                    </div>  
-                    <button type="submit" class="btn btn-dark float-end">Save OurService</button>
+                        <label for="ourserviceName" class="form-label">Service Name</label>
+                        <input type="text" class="form-control" id="ourserviceName" name="Name" required>
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-success px-4">Save</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Update Modal-->
-
-<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="updateModalLabel">Update OurService</h5>
+<!-- Update Modal -->
+<div class="modal fade" id="updateOurServiceModal" tabindex="-1" aria-labelledby="updateOurServiceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow-lg border-0 rounded-4">
+            <div class="modal-header btn btn-light text-dark rounded-top-4">
+                <h5 class="modal-title fw-semibold" id="updateOurServiceModalLabel">Update OurService</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body px-4 py-3">
                 <form id="updateOurServiceForm">
-                    <!-- düzeltildi -->
-                    <input type="hidden" id="updateourServiceId" name="Id"> <!-- düzeltildi -->
                     <div class="mb-3">
-                        <label for="updateourServiceName" class="form-label">OurService Name</label>
-                        <input type="text" class="form-control" id="updateourServiceName" name="Name">
+                        <label for="updateOurServiceName" class="form-label">Service Name</label>
+                        <input type="text" class="form-control" id="updateOurServiceName" required>
                     </div>
-                    <button type="submit" class="btn btn-warning float-end">Update OurService</button>
+                    <input type="hidden" id="updateOurServiceId">
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-save me-1"></i> Update ourservice
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
+    

@@ -2,7 +2,7 @@
     function loadOurServices() {
         $.ajax({
             type: "GET",
-            url: "/Services/GetOurServiceAsync",  
+            url: "/Services/GetOurServices",
             success: function (ourservices) {
                 let tableBody = $('#ourservicetable');
                 tableBody.empty();
@@ -42,7 +42,7 @@
             success: function (response) {
                 console.log('Add Service successful', response);
                 alert('Add OurService Succesfull'),
-                location.reload(); 
+                    location.reload();
             },
             error: function (xhr) {
                 console.error('Error:', xhr.responseText);
@@ -76,17 +76,35 @@
 
 
     //Update Service
+
+    $(document).on('click', '.edit-btn', function () {
+        var ourServiceId = $(this).data('id');
+        $.ajax({
+            type: 'GET',
+            url: '/Services/GetOurServiceById/' + ourServiceId,
+            success: function (ourservice) {
+                $('#updateOurServiceId').val(ourservice.id);
+                $('#updateOurServiceName').val(ourservice.name);
+                $('#updateOurServiceModal').modal('show');
+            },
+            error: function (xhr) {
+                console.error("Error Fetching Our Service", xhr.responseText);
+            }
+        });
+    });
+        
+
     $('#updateOurServiceForm').submit(function (event) {
-        event.preventDefault(); 
+        event.preventDefault();
 
         var ourServiceUpdate = {
-            id: $('#updateOurServiceId').val(), 
-            name: $('#updateOurServiceName').val() 
+            id: $('#updateOurServiceId').val(),
+            name: $('#updateOurServiceName').val()
         };
 
         $.ajax({
-            type: "PUT",  
-            url: "/Services/UpdateServiceAsync/", 
+            type: "PUT",
+            url: "/Services/UpdateServiceAsync/",
             contentType: 'application/json',
             data: JSON.stringify(ourServiceUpdate),
             success: function (response) {
@@ -99,7 +117,6 @@
             }
         });
     });
-
+        
 });
-
 

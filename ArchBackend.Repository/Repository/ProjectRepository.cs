@@ -1,7 +1,11 @@
 ﻿using ArchBackend.Core.Models;
+using ArchBackend.Core.Models.Dto;
 using ArchBackend.Core.Repositories;
+using ArchBackend.Repository.Repository;
 using ArchBackend.Repository.Repository.Generic;
 using Microsoft.EntityFrameworkCore;
+
+
 
 public class ProjectRepository : GenericRepository<Project>, IProjectRepository
 {
@@ -28,7 +32,10 @@ public class ProjectRepository : GenericRepository<Project>, IProjectRepository
 
     public async Task<IEnumerable<Project>> GetAllAsync()
     {
-        return await _context.Projects.ToListAsync();
+        return await _context.Projects
+            .Include(p => p.ProjectCategories)
+            .ThenInclude(pc => pc.Category)
+            .ToListAsync();
     }
 
     public async Task<bool> UpdateAsync(Project project)
@@ -42,4 +49,52 @@ public class ProjectRepository : GenericRepository<Project>, IProjectRepository
         _context.Projects.Remove(project);
         await _context.SaveChangesAsync();
     }
+
+
+    public async Task<IEnumerable<ProjectDto>> DetailWithCategory()
+    {
+
+        var projects = await _context.Projects
+       .Include(p => p.ProjectCategories)
+       .ThenInclude(pc => pc.Category)
+       .AsNoTracking()
+       .ToListAsync();
+
+        return projects.Select(p => new ProjectDto
+        {
+            Id = p.Id,
+            Name = p.Name,
+            Description = p.Description,
+            Location = p.Location,
+            Tag = p.Tag,
+            ImagePath = p.ImagePath,
+            Categories = p.ProjectCategories
+                             .Select(pc => pc.Category.Name) 
+                             .ToList()
+        });
+
+    }
+    public async Task<IEnumerable<ProjectDto>> DetailWithOurService()
+    {
+        var projects = await _context.Projects
+       .Include(p => p.OurServiceProjects)
+       .ThenInclude(pc => pc.OurService)
+       .AsNoTracking()
+       .ToListAsync();
+        return projects.Select(p => new ProjectDto
+        {
+            Id = p.Id,
+            Name = p.Name,
+            Description = p.Description,
+            Location = p.Location,
+            Tag = p.Tag,
+            ImagePath = p.ImagePath,
+            OurServices = p.OurServiceProjects
+                            .Select(op => op.OurService.Name) 
+                             .ToList()
+        });
+
+
+    }
+
 }

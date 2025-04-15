@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ArchBackend.Web.Controllers
 {
+    [Authorize]
     public class PanelController : Controller
     {
         public IActionResult Index()

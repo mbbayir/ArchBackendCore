@@ -27,19 +27,23 @@ public class ServicesController : Controller
         return View(services);
     }
 
-    [HttpGet("GetOurServiceAsync")]
-    public async Task<IActionResult> GetOurServiceAsync()
+    [HttpGet("GetOurService/{id}")]
+    public async Task<IActionResult> GetOurServices()
     {
         var services = await _ourService.GetOurServiceAsync();
         return Json(services);
     }
 
-    [HttpGet("GetServiceById/{id}")]
-    public async Task<IActionResult> GetServiceById(int id)
+    [HttpGet("GetOurServiceById/{id}")]
+    public async Task<IActionResult> GetOurServiceById(int id)
     {
         var service = await _ourService.GetOurServiceIdAsync(id);
+        if (service == null)
+            return NotFound();
+
         return Ok(service);
     }
+
 
 
     [HttpPost("AddOurServiceAsync")]

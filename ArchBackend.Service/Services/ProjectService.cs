@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Hosting;
 using ArchBackend.Core.Models;
+using ArchBackend.Core.Models.Dto;
 
 public class ProjectService : IProjectService
 {
@@ -108,4 +109,18 @@ public class ProjectService : IProjectService
         await _unitOfWork.CommitAsync();
         return true;
     }
+
+      Task<IEnumerable<ProjectDto>> IProjectService.DetailWithCategory()
+    {
+  
+        return  _projectRepository.DetailWithCategory();
+    }
+
+
+    Task<IEnumerable<ProjectDto>> IProjectService.DetailWithOurService()
+    {
+        return _projectRepository.DetailWithOurService();
+
+    }
 }
+
