@@ -25,6 +25,7 @@ namespace ArchBackend.Core.Models
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new UserSeed());
+            modelBuilder.ApplyConfiguration(new RoleSeed());
 
 
 

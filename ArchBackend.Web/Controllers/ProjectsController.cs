@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ArchBackend.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class ProjectsController : Controller
     {
         private readonly IProjectService _projectService;

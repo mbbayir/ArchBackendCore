@@ -2,9 +2,11 @@
 using ArchBackend.Core.Services;
 using ArchBackend.Service.Services;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+[Authorize(Roles = "Admin")]
 
 [Route("Services")]
 public class ServicesController : Controller

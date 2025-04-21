@@ -1,51 +1,139 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@{
+	var classname = ViewBag.ClassName;
+}
+<!DOCTYPE html>
+<html lang="zxx">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ArchBackend.Web</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/ArchBackend.Web.styles.css" asp-append-version="true" />
-
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Home | Architecture</title>
+    <link rel="shortcut icon" href="img/favicon.png" />
+	<link rel="stylesheet" href="~/css/plugins.css" />
+	<link rel="stylesheet" href="~/css/style.css" />
+	@await RenderSectionAsync("style", required: false)
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ArchBackend.Web</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+	<div class="preloader-bg"></div>
+	<div id="preloader">
+		<div id="preloader-status">
+			<div class="preloader-position loader"><span></span></div>
+		</div>
+	</div>
+	<!-- Progress scroll totop -->
+	<div class="progress-wrap cursor-pointer">
+		<svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+			<path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+		</svg>
+	</div>
+	<nav class="navbar navbar-expand-lg">
+		<!-- Logo -->
+		<div class="logo-wrapper valign">
+			<div class="logo">
+				<a href="/Home/Index">
+					<img src="#" class="logo-img" alt="">
+					<h2>Arif Turhal<span>Architecture</span></h2>
+				</a>
+			</div>
+		</div>
+		<!-- Button -->
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"><i class="ti-menu"></i></span> </button>
+		<!-- Menu -->
+		<div class="collapse navbar-collapse" id="navbar">
+			<ul class="navbar-nav ms-auto">
+@* 				<li class="nav-item"><a class="nav-link active" href="index.html">ANASAYFA</a></li>
+ *@					<li class="nav-item"><a class="nav-link" href="/Home/Index">ANASAYFA</a></li>
+				<li class="nav-item"><a class="nav-link" href="/Home/About">HAKKIMIZDA</a></li>
+				<li class="nav-item"><a class="nav-link" href="/Home/Services">HIZMETLERIMIZ</a></li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">Projelerimiz <i class="ti-angle-down"></i></a>
+					<ul class="dropdown-menu">
+						<li><a href="/Home/Projects" class="dropdown-item"><span>Projelerimiz</span></a></li>
+						<li><a href="/Home/ProjectGalery" class="dropdown-item"><span>Proje Galerimiz</span></a></li>
+						<li><a href="/Home/WorkProcess" class="dropdown-item"><span>Gelistirme Sureci </span></a></li>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - ArchBackend.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+					</ul>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="/Home/Blog" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">Blog <i class="ti-angle-down"></i></a>
+					<ul class="dropdown-menu">
+						<li><a href="/Home/Blog" class="dropdown-item"><span>Blog</span></a></li>
+						<li><a href="/Home/FAQ" class="dropdown-item"><span>FAQ</span></a></li>
+					</ul>
+				</li>
+
+				<li class="nav-item"><a class="nav-link" href="/Home/Contact">ILETISIM</a></li>
+			</ul>
+		</div>
+	</nav>
+
+
+		@RenderBody()
+	
+	<footer class="main-footer dark">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 mb-30">
+					<div class="item fotcont">
+						<div class="fothead">
+							<h6>Phone:</h6>
+						</div>
+						<p>+------</p>
+					</div>
+				</div>
+				<div class="col-md-4 mb-30">
+					<div class="item fotcont">
+						<div class="fothead">
+							<h6>Email:</h6>
+						</div>
+						<p><a href="mailto:info@arifturhalmimarlik.com">info@arifturhalmimarlik.com</a></p>
+					</div>
+				</div>
+				<div class="col-md-4 mb-30">
+					<div class="item fotcont">
+						<div class="fothead">
+							<h6>Our Address:</h6>
+						</div>
+						<p>Yasamkent  Cayyolu, Ankara</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="sub-footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="text-left">
+							<p>© 2025 Developed <a href="https://mehmetburakbayir.com/">Mehmet Burak Bayir</a></p>
+						</div>
+					</div>
+					<div class="col-md-4 abot">
+						<div class="social-icon"> <a href="index.html"><i class="ti-facebook"></i></a> <a href="index.html"><i class="ti-twitter"></i></a> <a href="index.html"><i class="ti-instagram"></i></a> <a href="index.html"><i class="ti-pinterest"></i></a> </div>
+					</div>
+					<div class="col-md-4">
+						<p class="right"><a href="#">Terms &amp; Conditions</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
     <script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="~/js/jquery-3.6.3.min.js"></script>
+	<script src="~/js/jquery-migrate-3.0.0.min.js"></script>
+	<script src="~/js/modernizr-2.6.2.min.js"></script>
+	<script src="~/js/imagesloaded.pkgd.min.js"></script>
+    <script src="~/js/jquery.isotope.v3.0.2.js"></script>
+	<script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+	<script src="~/js/scrollIt.min.js"></script>
+	<script src="~/js/jquery.waypoints.min.js"></script>
+	<script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/jquery.stellar.min.js"></script>
+	<script src="~/js/jquery.magnific-popup.js"></script>
+    <script src="~/js/YouTubePopUp.js"></script>
+	<script src="~/js/before-after.js"></script>
+	<script src="~/js/vegas.slider.min.js"></script>
+	<script src="~/js/custom.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

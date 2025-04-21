@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ArchBackend.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class PanelController : Controller
     {
         public IActionResult Index()

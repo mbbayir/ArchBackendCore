@@ -1,8 +1,347 @@
-﻿@{
+﻿ @{
     ViewData["Title"] = "Home Page";
+
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Slider -->
+<header class="header slider-fade">
+	<div class="owl-carousel owl-theme">
+		<!-- Arka plan görseli ve karartma -->
+		<div class="text-end item bg-img" data-overlay-dark="3" data-background="@Url.Content("~/img/slider/1.jpg")">
+			<div class="v-middle caption mt-30">
+				<div class="container">
+					<div class="row">
+						<div class="row">
+							<div class="col-md-7 offset-md-5">
+								<h1>Modern Mimarinin İzinde</h1>
+								<p>Her yapı bir hikâye anlatır.</p>
+								<p>Biz, estetikle işlevselliği buluşturuyor; yapılarınıza karakter katıyoruz.</p>
+								<p>Detaylarda gizli zarafeti keşfedin.</p>
+								<div class="butn-light mt-30 mb-30">
+									<a href="/Home/Projects"><span>Projelerimiz</span></a>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- İkinci slider -->
+		<div class="text-end item bg-img" data-overlay-dark="4" data-background=@Url.Content("~/img/slider/2.jpg")>
+			<div class="v-middle caption mt-30">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-7 offset-md-5">
+							<h1>Dijital Mimarlıkta Yeni Bir Soluk</h1>
+							<p>Arçbacke için estetik ve teknolojiyi bir araya getiriyoruz.</p>
+							<div class="butn-light mt-30 mb-30">
+								<a href="/Home/Services"><span>Hizmetlerimiz</span></a>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Logo bölümü -->
+	<div style="position:absolute; top:30px; left:30px; z-index:10;">
+		<a href="index.html">
+			<img src="~/img/logo2.png" alt="Arif Turhal Mimarlık" style="height:120px;">
+		</a>
+	</div>
+
+	<!-- Köşeler -->
+	<div class="hero-corner"></div>
+	<div class="hero-corner3"></div>
+
+	<!-- Sol sosyal medya paneli -->
+	<div class="left-panel">
+		<ul class="social-left clearfix">
+			<li><a href="#"><i class="ti-pinterest"></i></a></li>
+			<li><a href="#"><i class="ti-instagram"></i></a></li>
+			<li><a href="#"><i class="ti-twitter"></i></a></li>
+			<li><a href="#"><i class="ti-facebook"></i></a></li>
+		</ul>
+	</div>
+</header>
+
+
+<!-- Content -->
+<div class="content-wrapper">
+	<!-- Lines -->
+	<section class="content-lines-wrapper">
+		<div class="content-lines-inner">
+			<div class="content-lines"></div>
+		</div>
+	</section>
+	<!-- About -->
+	<section class="about section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 mb-30 animate-box" data-animate-effect="fadeInUp">
+					<h2 class="section-title"> <span>Arif Turhal Mimarlık</span></h2>
+					<p>Arif Turhal Mimarlık, estetik ve teknolojiyi bir araya getirerek dijital mimarlık alanında yenilikçi projeler sunuyor. Tasarımlarımız, modern yaşamın ihtiyaçlarını ve çevreyi en iyi şekilde harmanlar.</p>
+					<p>Yaratıcı projelerimiz, her birinin eşsiz ve fonksiyonel olmasına özen gösterdiğimiz, çağdaş bir mimari anlayışa sahiptir. Bu süreçte, müşteri odaklı yaklaşımımız her zaman ön planda tutulur.</p>
+					<p>Çeşitli tasarım disiplinlerinde güçlü bir deneyime sahip olan ekibimiz, her projeye derinlemesine ilgi gösterir. Her bir detayda kaliteyi ve sürdürülebilirliği amaçlayan bir vizyonla çalışıyoruz.</p>
+				</div>
+				<div class="col-md-6 animate-box" data-animate-effect="fadeInUp">
+					<div class="about-img">
+						<div class="img"> <img src="~/img/about.jpg" class="img-fluid" alt="Arif Turhal Mimarlık"> </div>
+						<div class="about-img-2 about-buro">ANKARA Ofisi</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Projects -->
+	<section class="projects section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h2 class="section-title"> <span>Projelerimiz</span></h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="owl-carousel owl-theme">
+						<div class="item">
+							<div class="position-re o-hidden"> <img src="~/img/projects/1.jpg" alt=""> </div>
+							<div class="con">
+								<h6><a href="cotton-house.html">Interior</a></h6>
+								<h5><a href="cotton-house.html">Garden House</a></h5>
+								<div class="line"></div> <a href="cotton-house.html"><i class="ti-arrow-right"></i></a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="position-re o-hidden"> <img src="~/img/projects/2.jpg" alt=""> </div>
+							<div class="con">
+								<h6><a href="armada-center.html">Exterior</a></h6>
+								<h5><a href="armada-center.html">City Center</a></h5>
+								<div class="line"></div> <a href="armada-center.html"><i class="ti-arrow-right"></i></a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="position-re o-hidden"> <img src="~/img/projects/3.jpg" alt=""> </div>
+							<div class="con">
+								<h6><a href="stonya-villa.html">Urban</a></h6>
+								<h5><a href="stonya-villa.html">Stonya Villa</a></h5>
+								<div class="line"></div> <a href="stonya-villa.html"><i class="ti-arrow-right"></i></a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="position-re o-hidden"> <img src="~/img/projects/4.jpg" alt=""> </div>
+							<div class="con">
+								<h6><a href="prime-hotel.html">Interior</a></h6>
+								<h5><a href="prime-hotel.html">Prime Hotel</a></h5>
+								<div class="line"></div> <a href="prime-hotel.html"><i class="ti-arrow-right"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Services -->
+	<section class="services section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h2 class="section-title"> <span>Hizmetlerimiz</span></h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="item">
+						<a href="architecture.html">
+							<img src="~/img/icons/icon-1.png" alt="">
+							<h5>Mimarlık</h5>
+							<div class="line"></div>
+							<p>Mimarlık bibendum eros eget lacus the vulputate sit amet vehicuta nibhen ulicera in the vitae miss.</p>
+							<div class="numb">01</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="item">
+						<a href="interior-design.html">
+							<img src="~/img/icons/icon-2.png" alt="">
+							<h5>İç Mekan Tasarımı</h5>
+							<div class="line"></div>
+							<p>İç mekan tasarımı bibendum eros eget lacus the vulputate sit amet vehicuta nibhen ulicera in the vitae miss.</p>
+							<div class="numb">02</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="item">
+						<a href="urban-design.html">
+							<img src="~/img/icons/icon-3.png" alt="">
+							<h5>Şehir Tasarımı</h5>
+							<div class="line"></div>
+							<p>Şehir tasarımı bibendum eros eget lacus the vulputate sit amet vehicuta nibhen ulicera in the vitae miss.</p>
+							<div class="numb">03</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Blog -->
+	<section class="bauen-blog section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h2 class="section-title">Guncel <span>Haberler</span></h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="owl-carousel owl-theme">
+						<div class="item">
+							<div class="position-re o-hidden"> <img src="~/img/slider/1.jpg" alt=""> </div>
+							<div class="con">
+								<span class="category">
+									<a href="blog.html">Architecture </a> - 20.12.2024
+								</span>
+								<h5><a href="post.html">Modern Architectural Structures</a></h5>
+							</div>
+						</div>
+						<div class="item">
+							<div class="position-re o-hidden"> <img src="~/img/slider/2.jpg" alt=""> </div>
+							<div class="con">
+								<span class="category">
+									<a href="blog.html">Interior</a> - 18.12.2024
+								</span>
+								<h5><a href="post.html">Modernism in Architecture</a></h5>
+							</div>
+						</div>
+						<div class="item">
+							<div class="position-re o-hidden"> <img src="~/img/slider/3.jpg" alt=""> </div>
+							<div class="con">
+								<span class="category">
+									<a href="blog.html">Urban</a> - 16.12.2024
+								</span>
+								<h5><a href="post.html">Postmodern Architecture</a></h5>
+							</div>
+						</div>
+						<div class="item">
+							<div class="position-re o-hidden"> <img src="~/img/slider/4.jpg" alt=""> </div>
+							<div class="con">
+								<span class="category">
+									<a href="blog.html">Planing</a> - 14.12.2024
+								</span>
+								<h5><a href="post.html">Modern Architecture Buildings</a></h5>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Promo video - Testiominals -->
+	<section class="testimonials">
+		<div class="background bg-img bg-fixed section-padding pb-0" data-background="~/img/banner2.jpg" data-overlay-dark="3">
+			<div class="container">
+				<div class="row">
+					<!-- Promo video -->
+					<div class="col-md-6">
+						<div class="vid-area">
+							<div class="vid-icon">
+								<a class="play-button vid" href="https://youtu.be/RziCmLzpFNY">
+									<svg class="circle-fill">
+										<circle cx="43" cy="43" r="39" stroke="#fff" stroke-width=".5"></circle>
+									</svg>
+									<svg class="circle-track">
+										<circle cx="43" cy="43" r="39" stroke="none" stroke-width="1" fill="none"></circle>
+									</svg> <span class="polygon">
+										<i class="ti-control-play"></i>
+									</span>
+								</a>
+							</div>
+							<div class="cont mt-15 mb-30">
+								<h5>View promo video</h5>
+							</div>
+						</div>
+					</div>
+					<!-- Testiominals -->
+					<div class="col-md-5 offset-md-1">
+						<div class="testimonials-box animate-box" data-animate-effect="fadeInUp">
+							<div class="head-box">
+								<h4>Müşteri Yorumları</h4>
+							</div>
+							<div class="owl-carousel owl-theme">
+								<div class="item">
+									<span class="quote"><img src="~/img/quot.png" alt=""></span>
+									<p>"Arif Turhal Mimarlık, projemizdeki her detayı büyük bir özenle ele aldı. Tasarımlarının yaratıcı ve fonksiyonel yapısı, işimizi çok daha verimli hale getirdi."</p>
+									<div class="info">
+										<div class="author-img"><img src="~/img/team/1.jpg" alt=""></div>
+										<div class="cont">
+											<h6>Ahmet Yılmaz</h6> <span>Proje Yöneticisi</span>
+										</div>
+									</div>
+								</div>
+								<div class="item">
+									<span class="quote"><img src="~/img/quot.png" alt=""></span>
+									<p>"İç mekan tasarımındaki profesyonellikleri sayesinde ofisimizin atmosferini tamamen değiştirdiler. Çalışanlarımız artık daha verimli ve mutlu."</p>
+									<div class="info">
+										<div class="author-img"><img src="~/img/team/2.jpg" alt=""></div>
+										<div class="cont">
+											<h6>Selin Kaya</h6> <span>İK Direktörü</span>
+										</div>
+									</div>
+								</div>
+								<div class="item">
+									<span class="quote"><img src="~/img/quot.png" alt=""></span>
+									<p>"Şehir tasarımı projelerinde çevre dostu çözümler ve estetik birleştirilmiş. Her projenin sonuçları beklentimizin çok ötesinde oldu."</p>
+									<div class="info">
+										<div class="author-img"><img src="~/img/team/4.jpg" alt=""></div>
+										<div class="cont">
+											<h6>Baran Demir</h6> <span>Şehir Planlamacısı</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Clients -->
+	<section class="clients">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-7">
+					<div class="owl-carousel owl-theme">
+						<div class="clients-logo">
+							<a href="#0"><img src="~/img/clients/1.png" alt=""></a>
+						</div>
+						<div class="clients-logo">
+							<a href="#0"><img src="~/img/clients/2.png" alt=""></a>
+						</div>
+						<div class="clients-logo">
+							<a href="#0"><img src="~/img/clients/3.png" alt=""></a>
+						</div>
+						<div class="clients-logo">
+							<a href="#0"><img src="~/img/clients/4.png" alt=""></a>
+						</div>
+						<div class="clients-logo">
+							<a href="#0"><img src="~/img/clients/5.png" alt=""></a>
+						</div>
+						<div class="clients-logo">
+							<a href="#0"><img src="~/img/clients/6.png" alt=""></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 </div>

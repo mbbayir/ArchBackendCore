@@ -55,7 +55,7 @@ builder.Services.AddAutoMapper(typeof(AutoMap));
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Account/Login"; 
-    options.AccessDeniedPath = "/Account/AccessDenied"; 
+    options.AccessDeniedPath = "/Home/Index"; 
     options.SlidingExpiration = true;
     options.ExpireTimeSpan = TimeSpan.FromDays(30);
 });
@@ -70,7 +70,7 @@ builder.Services.AddAuthorization(options =>
 });
 
 
-builder.Services.AddCors(opt=>
+builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("CorsPolicy", builder =>
     {
@@ -85,7 +85,7 @@ builder.Services.AddControllersWithViews();
 
 
 var app = builder.Build();
-
+app.UseCors("CorsPolicy");
 
 if (!app.Environment.IsDevelopment())
 {
@@ -103,7 +103,8 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Panel}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.Run();
 

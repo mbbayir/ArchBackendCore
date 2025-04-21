@@ -19,6 +19,62 @@ namespace ArchBackend.Web.Controllers
             return View();
         }
 
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        public IActionResult Services()
+        {
+            return View();
+        }
+        public IActionResult Projects()
+        {
+            return View();
+        }
+
+        public IActionResult ProjectGalery()
+        {
+            return View();
+        }
+        public IActionResult WorkProcess()
+        {
+            return View();
+        }
+
+        public IActionResult FAQ()
+        {
+            return View();
+        }
+
+        public IActionResult Blog()
+        {
+            return View();
+        }
+
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+        public IActionResult Post()
+        {
+            return View();
+        }
+
+        public IActionResult Post2()
+        {
+            return View();
+        }
+        public IActionResult Post3()
+        {
+            return View();
+        }
+        public IActionResult Post4()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
