@@ -1,4 +1,4 @@
-![Screenshot 2025-04-22 170310](https://github.com/user-attachments/assets/809d7918-fbd2-4286-b6bd-f0117571e9c3)"I am developing a back-end project for an architecture firm in a way that is open for future development and easy to scale up."
+"I am developing a back-end project for an architecture firm in a way that is open for future development and easy to scale up."
 "I am building the backend system for the architectural project with a scalable and extensible architecture and ensuring that it can support future development."
 
 
@@ -6,6 +6,6 @@
 
 ![Screenshot 2025-04-16 211748](https://github.com/user-attachments/assets/c2bf4bf5-d2b1-46a7-b57b-60cb3949c740)
 
-![Uploading Screenshot 2025-04-22 170310.png…]()
+![Screenshot 2025-04-22 170310](https://github.com/user-attachments/assets/809d7918-fbd2-4286-b6bd-f0117571e9c3)
 
 
