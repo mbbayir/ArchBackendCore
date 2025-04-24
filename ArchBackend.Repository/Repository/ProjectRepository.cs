@@ -53,12 +53,13 @@ public class ProjectRepository : GenericRepository<Project>, IProjectRepository
 
     public async Task<IEnumerable<ProjectDto>> DetailWithCategory()
     {
-
         var projects = await _context.Projects
-       .Include(p => p.ProjectCategories)
-       .ThenInclude(pc => pc.Category)
-       .AsNoTracking()
-       .ToListAsync();
+            .Include(p => p.ProjectCategories)
+                .ThenInclude(pc => pc.Category)
+            .Include(p => p.OurServiceProjects)
+                .ThenInclude(op => op.OurService)
+            .AsNoTracking()
+            .ToListAsync();
 
         return projects.Select(p => new ProjectDto
         {
@@ -69,10 +70,12 @@ public class ProjectRepository : GenericRepository<Project>, IProjectRepository
             Tag = p.Tag,
             ImagePath = p.ImagePath,
             Categories = p.ProjectCategories
-                             .Select(pc => pc.Category.Name) 
-                             .ToList()
+                .Select(pc => pc.Category.Name)
+                .ToList(),
+            OurServices = p.OurServiceProjects
+                .Select(op => op.OurService.Name)
+                .ToList()
         });
-
     }
     public async Task<IEnumerable<ProjectDto>> DetailWithOurService()
     {
@@ -90,11 +93,11 @@ public class ProjectRepository : GenericRepository<Project>, IProjectRepository
             Tag = p.Tag,
             ImagePath = p.ImagePath,
             OurServices = p.OurServiceProjects
-                            .Select(op => op.OurService.Name) 
+                            .Select(op => op.OurService.Name)
                              .ToList()
         });
-
 
     }
 
 }
+

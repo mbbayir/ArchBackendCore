@@ -1519,6 +1519,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\Ajax\NewFolder\" />
     <Folder Include="wwwroot\uploads\" />
     <Folder Include="wwwroot\Panel\img\icons\" />
   </ItemGroup>

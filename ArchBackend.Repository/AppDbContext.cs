@@ -9,8 +9,8 @@ namespace ArchBackend.Core.Models
     public class AppDbContext : IdentityDbContext<Users, Roles, int>
     {   
         public DbSet<Project> Projects { get; set; }
-
-        public DbSet<Contact> Contacts { get; set; }
+        
+        public DbSet<ContactMessage> ContactMessages { get; set; }
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<OurService> OurServices { get; set; }

@@ -21,6 +21,8 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IOurServiceRepository, OurServiceRepository>();
 builder.Services.AddScoped<IOurService, ArchBackend.Service.Services.OurService>();
+builder.Services.AddScoped<IContactMessageRepository, ContactMessageRepository>();
+builder.Services.AddScoped<IContactMessageService, ContactMessageService>();
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>

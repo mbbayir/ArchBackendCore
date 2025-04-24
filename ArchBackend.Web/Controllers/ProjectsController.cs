@@ -1,16 +1,13 @@
-﻿    using ArchBackend.Core.Services;
-using ArchBackend.Core.Models;
-using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
-using AutoMapper;
-using ArchBackend.Web.Models;
-using System.Runtime.InteropServices;
+﻿using ArchBackend.Core.Models;
 using ArchBackend.Core.Models.Bridges;
+using ArchBackend.Core.Services;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ArchBackend.Web.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
     public class ProjectsController : Controller
     {
         private readonly IProjectService _projectService;
@@ -28,61 +25,52 @@ namespace ArchBackend.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-          var categories = await _categoryService.GetCategoryAsync();
-          ViewBag.Categories = categories;
+            var categories = await _categoryService.GetCategoryAsync();
+            ViewBag.Categories = categories;
 
-          var ourServices = await _ourService.GetOurServiceAsync();
-          ViewBag.OurServices = ourServices;
-          return View();
+            var ourServices = await _ourService.GetOurServiceAsync();
+            ViewBag.OurServices = ourServices;
+
+            return View();
         }
 
-
         [HttpGet]
-        public async Task<JsonResult> GetProctWithCategory()
+        public async Task<JsonResult> GetProjectWithCategory()
         {
             var projects = await _projectService.DetailWithCategory();
             return Json(projects);
         }
 
-
-        public async Task<JsonResult> GetProctWithOurService()
+        [HttpGet]
+        public async Task<JsonResult> GetProjectWithOurService()
         {
             var projects = await _projectService.DetailWithOurService();
             return Json(projects);
         }
 
-
         [HttpGet]
         public async Task<IActionResult> GetProjectById(int id)
         {
             var project = await _projectService.GetProjectByIdAsync(id);
-
             return Ok(project);
         }
 
-
         [HttpPost]
-        public async Task<IActionResult> AddProject([FromForm] Project project, [FromForm] IFormFile formFile, [FromForm] List<int> CategoryIds , [FromForm] List<int> OurServiceIds)
+        public async Task<IActionResult> AddProject([FromForm] Project project, [FromForm] IFormFile formFile, [FromForm] List<int> CategoryIds, [FromForm] List<int> OurServiceIds)
         {
             project.ProjectCategories = CategoryIds.Select(cid => new ProjectCategory { CategoryId = cid }).ToList();
-            project.OurServiceProjects = OurServiceIds
-                .Select(oid => new OurServiceProject { OurServiceId = oid })
-                .ToList();
+            project.OurServiceProjects = OurServiceIds.Select(oid => new OurServiceProject { OurServiceId = oid }).ToList();
 
             var createdProject = await _projectService.AddProjectAsync(project, formFile);
-
             return Ok(createdProject);
         }
-
 
         [HttpPut]
         public async Task<IActionResult> UpdateProject(int id, [FromForm] Project project, [FromForm] IFormFile formFile)
         {
-          
             var updatedProject = await _projectService.UpdateProjectAsync(project, formFile);
             return Ok(updatedProject);
         }
-
 
         [HttpDelete]
         public async Task<IActionResult> DeleteProject(int id)
@@ -91,4 +79,5 @@ namespace ArchBackend.Web.Controllers
             return Ok(result);
         }
     }
+
 }

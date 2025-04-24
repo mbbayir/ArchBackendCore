@@ -2,47 +2,53 @@
 
     function loadProjects() {
         $.ajax({
-            type: 'GET',
-            url: '/Projects/GetProctWithCategory',
+            type: "GET",
+            url: "/Projects/GetProjectWithCategory",
             success: function (response) {
                 console.log("Projects Loaded:", response);
 
-                // Eğer response içinde $values varsa, o kısmı kullanın
                 var projects = response.$values || response;
 
                 let tableBody = $('#projecttable');
                 tableBody.empty();
 
                 projects.forEach(function (project) {
-                    var categoryList = project.categories && project.categories.length > 0
-                        ? project.categories.join(", ")
+
+                    var categoryList = project.categories && project.categories.$values.length > 0
+                        ? project.categories.$values.join(", ")
                         : 'No Category';
-                    var ourserviceList = project.ourservice && project.ourservice.length > 0
-                        ? project.ourservice.join(", ")
-                        :'No  ourService'
+
+                    var ourServiceList = project.ourServices && project.ourServices.$values.length > 0
+                        ? project.ourServices.$values.join(", ")
+                        : 'No Service';
+
+
                     var row = `<tr>
-            <td>${project.name}</td>
-            <td>${project.description}</td>
-            <td>${project.location}</td>
-            <td>${project.tag}</td>
-            <td>${categoryList}</td>
-            <td>${ourserviceList}</td>
-<td><img src="${project.imagePath}" style="width: 70px; height: 70px; object-fit: cover;" /></td>
-            <td>
-                <button class="btn btn-outline-success btn-sm edit-btn" data-id="${project.id}">Update</button>
-                <button class="btn btn-outline-danger btn-sm delete-btn" data-id="${project.id}">Delete</button>
-            </td>
-        </tr>`;
+                        <td>${project.name}</td>
+                        <td>${project.description}</td>
+                        <td>${project.location}</td>
+                        <td>${project.tag}</td>
+                        <td>${categoryList}</td>
+                        <td>${ourServiceList}</td>
+                        <td><img src="${project.imagePath}" style="width: 70px; height: 70px; object-fit: cover;" /></td>
+                        <td>
+                            <button class="btn btn-outline-success btn-sm edit-btn" data-id="${project.id}">Update</button>
+                            <button class="btn btn-outline-danger btn-sm delete-btn" data-id="${project.id}">Delete</button>
+                        </td>
+                    </tr>`;
+
                     tableBody.append(row);
                 });
             },
             error: function (xhr) {
-                console.log("Error fetching projects:", xhr.responseText);
+                console.error("Error fetching projects:", xhr.responseText);
             }
         });
     }
 
     loadProjects();
+
+
 
     // Add Project
     $('#projectForm').submit(function (event) {
@@ -143,15 +149,23 @@
         formData.append("Location", $('#updateProjectLocation').val());
         formData.append("Tag", $('#updateProjectTag').val());
 
+        // Kategoriler
         var selectedCategories = $('#updateProjectCategory').val();
         if (selectedCategories) {
+            if (!Array.isArray(selectedCategories)) {
+                selectedCategories = [selectedCategories];
+            }
             selectedCategories.forEach(function (categoryId) {
                 formData.append("CategoryIds", categoryId);
             });
         }
 
+        // Our Services
         var selectedOurServices = $('#updateProjectOurService').val();
         if (selectedOurServices) {
+            if (!Array.isArray(selectedOurServices)) {
+                selectedOurServices = [selectedOurServices];
+            }
             selectedOurServices.forEach(function (ourserviceId) {
                 formData.append("OurServiceIds", ourserviceId);
             });
@@ -162,6 +176,8 @@
             formData.append("formFile", file);
         }
 
+
+        //Ajax metod update
         $.ajax({
             type: 'PUT',
             url: '/Projects/UpdateProject/' + projectId,

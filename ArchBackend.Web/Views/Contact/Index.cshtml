@@ -1,8 +1,43 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/Partials/_LayoutPanel.cshtml";
 }
 
-<h1>Contact</h1>
+@model List<ArchBackend.Core.Models.ContactMessage>
 
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Gelen Mesajlar</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-light">
+                <tr class="text-uppercase small text-secondary">
+                    <th>Ad</th>
+                    <th>Email</th>
+                    <th>Telefon</th>
+                    <th>Konu</th>
+                    <th>Mesaj</th>
+                    <th>Gönderim Tarihi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var msg in Model)
+                {
+                    <tr>
+                        <td>@msg.Name</td>
+                        <td>@msg.Email</td>
+                        <td>@msg.Phone</td>
+                        <td>@msg.Subject</td>
+                        <td>@msg.Message</td>
+                        <td>@msg.SentAt.ToString("dd.MM.yyyy HH:mm")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

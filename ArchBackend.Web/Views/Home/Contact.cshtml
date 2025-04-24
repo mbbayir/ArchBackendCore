@@ -38,7 +38,7 @@
                 </div>
                 <div class="col-md-4 animate-box" data-animate-effect="fadeInUp">
                     <p><b>Contact Form</b></p>
-                    <form method="post" class="contact__form" action="https://duruthemes.com/demo/html/bauen/multipage-light/mail.php">
+                    <form asp-controller="Contact" asp-action="Contact" method="post" id="contactForm">
                         <!-- Form message -->
                         <div class="row">
                             <div class="col-12">
@@ -185,5 +185,8 @@
             </div>
         </div>
     </section>
-
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/ajax/contact/contact.js"></script>
+

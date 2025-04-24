@@ -1,4 +1,6 @@
 using System.Diagnostics;
+using ArchBackend.Core.Models;
+using ArchBackend.Core.Services;
 using ArchBackend.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,10 +10,12 @@ namespace ArchBackend.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IContactMessageService _contactMessageService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IContactMessageService contactMessageService)
         {
             _logger = logger;
+            _contactMessageService = contactMessageService;
         }
 
         public IActionResult Index()
@@ -55,6 +59,13 @@ namespace ArchBackend.Web.Controllers
         public IActionResult Contact()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Contact(ContactMessage model)
+        {
+            await _contactMessageService.CreateMessage(model);
+            return RedirectToAction("Contact"); // formdan sonra tekrar Contact sayfas?na dön
         }
 
         public IActionResult Post()
