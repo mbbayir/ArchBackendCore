@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ArchBackend.Core.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using ArchBackend.Core.Models.Bridges;
 
 namespace ArchBackend.Core.Models
@@ -19,6 +14,8 @@ namespace ArchBackend.Core.Models
 
         public string ImagePath { get; set; }
 
+        [NotMapped]
+        public string DetailPageUrl => $"/project/detail/{Id}";
         public List<ProjectCategory> ProjectCategories { get; set; }
         public List<OurServiceProject> OurServiceProjects { get; set; }
 

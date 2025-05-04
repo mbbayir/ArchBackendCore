@@ -1,4 +1,6 @@
-﻿
+﻿@using ArchBackend.Core.Models
+@model List<Project>
+
 @{
     ViewData["Title"] = "Projects";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -24,71 +26,27 @@
                     <h2 class="section-title">Our <span>Projects</span></h2>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <ul class="bauen-project-filter">
-                        <li class="active" data-filter="*">All</li>
-                        <li data-filter=".exterior">Exterior Design</li>
-                        <li data-filter=".urban">Urban Design</li>
-                        <li data-filter=".interior">Interior Design</li>
-                    </ul>
-                </div>
-            </div>
+
+
             <div class="row bauen-project-items">
-                <div class="col-md-6 single-item exterior">
-                    <div class="bauen-project-wrap">
-                        <a href="cotton-house.html"><img src="~/img/projects/1.jpg" alt=""></a>
-                        <div class="bauen-project-content">
-                            <p>Exterior</p>
-                            <h3><a href="cotton-house.html">Cotton House</a></h3>
+                @foreach (var project in Model)
+                {
+                    <div class="col-md-6 single-item @project.Tag.ToLower()">
+                        <div class="bauen-project-wrap">
+                            <a href="@project.DetailPageUrl">
+                                <div class="project-image-wrapper">
+                                    <img src="@project.ImagePath" alt="@project.Name" class="project-image" />
+                                </div>
+                            </a>
+
+
+                            <div class="bauen-project-content">
+                                <p>@project.Tag</p>
+                                <h3><a href="@project.DetailPageUrl">@project.Name</a></h3>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 single-item urban">
-                    <div class="bauen-project-wrap">
-                        <a href="armada-center.html"><img src="~/img/projects/2.jpg" alt=""></a>
-                        <div class="bauen-project-content">
-                            <p>Exterior</p>
-                            <h3><a href="armada-center.html">Armada Center</a></h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 single-item urban">
-                    <div class="bauen-project-wrap">
-                        <a href="armada-center.html"><img src="~/img/projects/5.jpg" alt=""></a>
-                        <div class="bauen-project-content">
-                            <p>Urban</p>
-                            <h3><a href="armada-center.html">Geometric ADDO</a></h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 single-item exterior">
-                    <div class="bauen-project-wrap">
-                        <a href="stonya-villa.html"><img src="~/img/projects/3.jpg" alt=""></a>
-                        <div class="bauen-project-content">
-                            <p>Urban</p>
-                            <h3><a href="stonya-villa.html">Stonya Villa</a></h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 single-item urban">
-                    <div class="bauen-project-wrap">
-                        <a href="prime-hotel.html"><img src="~/img/projects/4.jpg" alt=""></a>
-                        <div class="bauen-project-content">
-                            <p>Urban</p>
-                            <h3><a href="prime-hotel.html">Prime Hotel</a></h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 single-item interior">
-                    <div class="bauen-project-wrap">
-                        <a href="stonya-villa.html"><img src="~/img/projects/6.jpg" alt=""></a>
-                        <div class="bauen-project-content">
-                            <p>Interior</p>
-                            <h3><a href="stonya-villa.html">Twins Office</a></h3>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </section>
@@ -121,40 +79,59 @@
                     <div class="col-md-5 offset-md-1">
                         <div class="testimonials-box animate-box" data-animate-effect="fadeInUp">
                             <div class="head-box">
-                                <h4>What Client's Say?</h4>
+                                <h4>Müşterilerimiz Ne Diyor?</h4>
                             </div>
                             <div class="owl-carousel owl-theme">
                                 <div class="item">
-                                    <span class="quote"><img src="~/img/quot.png" alt=""></span>
-                                    <p>Architect dapibus augue metus the nec feugiat erat hendrerit nec. Duis ve ante the lemon sanleo nec feugiat erat hendrerit necuis ve ante.</p>
+                                    <span class="quote">
+                                        <img src="@Url.Content("~/img/quot.png")" alt="Alıntı İkonu" />
+                                    </span>
+                                    <p>
+                                        Mimari hizmetinizden çok memnun kaldım. Ekip gerçekten profesyoneldi ve sürecin her aşamasında destek oldular.
+                                    </p>
                                     <div class="info">
-                                        <div class="author-img"> <img src="~/img/team/1.jpg" alt=""> </div>
+                                        <div class="author-img">
+                                            <img src="@Url.Content("~/img/team/1.jpg")" alt="Emre Turkyılmaz" />
+                                        </div>
                                         <div class="cont">
-                                            <h6>Jason Brown</h6> <span>Crowne Plaza Owner</span>
+                                            <h6>Ahmet Yılmaz</h6>
+                                            <span>Belediye Baskani</span>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="item">
                                     <span class="quote">
-                                        <img src="~/img/quot.png" alt="">
+                                        <img src="@Url.Content("~/img/quot.png")" alt="Alıntı İkonu" />
                                     </span>
-                                    <p>Interior dapibus augue metus the nec feugiat erat hendrerit nec. Duis ve ante the lemon sanleo nec feugiat erat hendrerit necuis ve ante.</p>
+                                    <p>
+                                        İç mimari konusunda harika bir iş çıkardınız. Tasarımlarınız sayesinde işletmemiz çok daha şık bir görünüme kavuştu.
+                                    </p>
                                     <div class="info">
-                                        <div class="author-img"> <img src="~/img/team/2.jpg" alt=""> </div>
+                                        <div class="author-img">
+                                            <img src="@Url.Content("~/img/team/2.jpg")" alt="Elif Demir" />
+                                        </div>
                                         <div class="cont">
-                                            <h6>Emily White</h6> <span>Armada Owner</span>
+                                            <h6>Elif Demir</h6>
+                                            <span>Kafe Sahibi</span>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="item">
                                     <span class="quote">
-                                        <img src="~/img/quot.png" alt="">
+                                        <img src="@Url.Content("~/img/quot.png")" alt="Alıntı İkonu" />
                                     </span>
-                                    <p>Urban dapibus augue metus the nec feugiat erat hendrerit nec. Duis ve ante the lemon sanleo nec feugiat erat hendrerit necuis ve ante.</p>
+                                    <p>
+                                        Şehir planlaması projesinde sizinle çalışmak gerçekten keyifliydi. Profesyonelliğiniz ve zamanında teslimatlarınız için teşekkür ederiz.
+                                    </p>
                                     <div class="info">
-                                        <div class="author-img"> <img src="~/img/team/4.jpg" alt=""> </div>
+                                        <div class="author-img">
+                                            <img src="@Url.Content("~/img/team/4.jpg")" alt="Murat Koç" />
+                                        </div>
                                         <div class="cont">
-                                            <h6>Jesica Smith</h6> <span>Alsa Manager</span>
+                                            <h6>Murat Koç</h6>
+                                            <span>Belediye Yöneticisi</span>
                                         </div>
                                     </div>
                                 </div>
@@ -196,3 +173,29 @@
     </section>
 
 </div>
+    
+
+@section style{
+
+    <style>
+        .project-image-wrapper {
+            width: 350px;
+            height: 200px; 
+            overflow: hidden;
+            border-radius: 9px; 
+        }
+
+        .project-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.3s ease;
+        }
+
+        .project-image-wrapper:hover .project-image {
+            transform: scale(1.05); /* hover efekti */
+        }
+
+    </style>
+}

@@ -28,6 +28,9 @@ namespace ArchBackend.Core.Models
             modelBuilder.ApplyConfiguration(new RoleSeed());
 
 
+            modelBuilder.Entity<Project>()
+                .Ignore(p => p.DetailPageUrl);
+
 
             modelBuilder.Entity<ProjectCategory>().HasKey(i => new { i.ProjectId, i.CategoryId });
             modelBuilder.Entity<ProjectCategory>()

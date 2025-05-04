@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using ArchBackend.Core.Models;
 using ArchBackend.Core.Services;
 using ArchBackend.Web.Models;
@@ -11,11 +11,13 @@ namespace ArchBackend.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IContactMessageService _contactMessageService;
+        private readonly IProjectService _projectService;
 
-        public HomeController(ILogger<HomeController> logger, IContactMessageService contactMessageService)
+        public HomeController(ILogger<HomeController> logger, IContactMessageService contactMessageService , IProjectService projectService)
         {
             _logger = logger;
             _contactMessageService = contactMessageService;
+            _projectService = projectService; 
         }
 
         public IActionResult Index()
@@ -32,10 +34,22 @@ namespace ArchBackend.Web.Controllers
         {
             return View();
         }
-        public IActionResult Projects()
+        public async Task<IActionResult> Projects()
         {
-            return View();
+            var projects = await _projectService.GetProjectsAsync();
+            return View(projects);
         }
+
+        [Route ("project/detail/{id}")]
+        public async Task<IActionResult> ProjectDetails(int id)
+        {
+            var project = await _projectService.GetProjectByIdAsync(id);
+            if (project == null)
+                return NotFound(); 
+
+            return View(project);
+        }
+
 
         public IActionResult ProjectGalery()
         {
@@ -65,7 +79,7 @@ namespace ArchBackend.Web.Controllers
         public async Task<IActionResult> Contact(ContactMessage model)
         {
             await _contactMessageService.CreateMessage(model);
-            return RedirectToAction("Contact"); // formdan sonra tekrar Contact sayfas?na d�n
+            return RedirectToAction("Contact"); // formdan sonra tekrar Contact sayfas?na dön
         }
 
         public IActionResult Post()
