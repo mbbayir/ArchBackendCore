@@ -1,13 +1,16 @@
-﻿ @{
+﻿@using ArchBackend.Core.Models
+ @{
     ViewData["Title"] = "Home Page";
 
 }
+
+@model IEnumerable<Project>
 
 <!-- Slider -->
 <header class="header slider-fade">
 	<div class="owl-carousel owl-theme">
 		<!-- Arka plan görseli ve karartma -->
-		<div class="text-end item bg-img" data-overlay-dark="3" data-background="@Url.Content("~/img/slider/1.jpg")">
+		<div class="text-end item bg-img" data-overlay-dark="3" data-background="@Url.Content("~/img/slider/11.jpg")">
 			<div class="v-middle caption mt-30">
 				<div class="container">
 					<div class="row">
@@ -29,7 +32,7 @@
 		</div>
 
 		<!-- İkinci slider -->
-		<div class="text-end item bg-img" data-overlay-dark="4" data-background=@Url.Content("~/img/slider/2.jpg")>
+		<div class="text-end item bg-img" data-overlay-dark="4" data-background=@Url.Content("~/img/slider/22.jpg")>
 			<div class="v-middle caption mt-30">
 				<div class="container">
 					<div class="row">
@@ -109,38 +112,21 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="owl-carousel owl-theme">
-						<div class="item">
-							<div class="position-re o-hidden"> <img src="~/img/projects/1.jpg" alt=""> </div>
-							<div class="con">
-								<h6><a href="cotton-house.html">Interior</a></h6>
-								<h5><a href="cotton-house.html">Garden House</a></h5>
-								<div class="line"></div> <a href="cotton-house.html"><i class="ti-arrow-right"></i></a>
+						@foreach (var project in Model)
+						{
+							<div class="item">
+								<div class="position-re o-hidden">
+									<!-- Image Path needs to be dynamically loaded from project.ImagePath -->
+									<img src="@Url.Content(project.ImagePath)" alt="@project.Name">
+								</div>
+								<div class="con">
+									<!-- Assuming project.Category and project.Name exist -->
+									<h5><a href="@Url.Action("ProjectDetails", new { id = project.Id })">@project.Name</a></h5>
+									<div class="line"></div>
+									<a href="@Url.Action("ProjectDetails", new { id = project.Id })"><i class="ti-arrow-right"></i></a>
+								</div>
 							</div>
-						</div>
-						<div class="item">
-							<div class="position-re o-hidden"> <img src="~/img/projects/2.jpg" alt=""> </div>
-							<div class="con">
-								<h6><a href="armada-center.html">Exterior</a></h6>
-								<h5><a href="armada-center.html">City Center</a></h5>
-								<div class="line"></div> <a href="armada-center.html"><i class="ti-arrow-right"></i></a>
-							</div>
-						</div>
-						<div class="item">
-							<div class="position-re o-hidden"> <img src="~/img/projects/3.jpg" alt=""> </div>
-							<div class="con">
-								<h6><a href="stonya-villa.html">Urban</a></h6>
-								<h5><a href="stonya-villa.html">Stonya Villa</a></h5>
-								<div class="line"></div> <a href="stonya-villa.html"><i class="ti-arrow-right"></i></a>
-							</div>
-						</div>
-						<div class="item">
-							<div class="position-re o-hidden"> <img src="~/img/projects/4.jpg" alt=""> </div>
-							<div class="con">
-								<h6><a href="prime-hotel.html">Interior</a></h6>
-								<h5><a href="prime-hotel.html">Prime Hotel</a></h5>
-								<div class="line"></div> <a href="prime-hotel.html"><i class="ti-arrow-right"></i></a>
-							</div>
-						</div>
+						}
 					</div>
 				</div>
 			</div>
@@ -197,46 +183,54 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h2 class="section-title">Guncel <span>Haberler</span></h2>
+					<h2 class="section-title">Güncel <span>Haberler</span></h2>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="owl-carousel owl-theme">
 						<div class="item">
-							<div class="position-re o-hidden"> <img src="~/img/slider/1.jpg" alt=""> </div>
+							<div class="position-re o-hidden">
+								<img src="~/img/slider/1.jpg" alt="">
+							</div>
 							<div class="con">
 								<span class="category">
-									<a href="blog.html">Architecture </a> - 20.12.2024
+									<a href="/home/blog">Mimari</a> - 20.12.2024
 								</span>
-								<h5><a href="post.html">Modern Architectural Structures</a></h5>
+								<h5><a href="/home/blog">Modern Mimari Yapılar</a></h5>
 							</div>
 						</div>
 						<div class="item">
-							<div class="position-re o-hidden"> <img src="~/img/slider/2.jpg" alt=""> </div>
+							<div class="position-re o-hidden">
+								<img src="~/img/slider/2.jpg" alt="">
+							</div>
 							<div class="con">
 								<span class="category">
-									<a href="blog.html">Interior</a> - 18.12.2024
+									<a href="/home/blog">İç Mekan</a> - 18.12.2024
 								</span>
-								<h5><a href="post.html">Modernism in Architecture</a></h5>
+								<h5><a href="/home/blog">Mimarlıkta Modernizm</a></h5>
 							</div>
 						</div>
 						<div class="item">
-							<div class="position-re o-hidden"> <img src="~/img/slider/3.jpg" alt=""> </div>
+							<div class="position-re o-hidden">
+								<img src="~/img/slider/3.jpg" alt="">
+							</div>
 							<div class="con">
 								<span class="category">
-									<a href="blog.html">Urban</a> - 16.12.2024
+									<a href="/home/blog">Kentsel</a> - 16.12.2024
 								</span>
-								<h5><a href="post.html">Postmodern Architecture</a></h5>
+								<h5><a href="/home/blog">Postmodern Mimari</a></h5>
 							</div>
 						</div>
 						<div class="item">
-							<div class="position-re o-hidden"> <img src="~/img/slider/4.jpg" alt=""> </div>
+							<div class="position-re o-hidden">
+								<img src="~/img/slider/4.jpg" alt="">
+							</div>
 							<div class="con">
 								<span class="category">
-									<a href="blog.html">Planing</a> - 14.12.2024
+									<a href="/home/blog">Planlama</a> - 14.12.2024
 								</span>
-								<h5><a href="post.html">Modern Architecture Buildings</a></h5>
+								<h5><a href="/home/blog">Modern Mimari Binalar</a></h5>
 							</div>
 						</div>
 					</div>
@@ -345,3 +339,18 @@
 		</div>
 	</section>
 </div>
+
+
+@section style{
+
+	<style>
+		.position-re.o-hidden img {
+			width: 400px;
+			height: 300px;
+			object-fit: cover;
+			border-radius: 8px;
+		}
+
+
+	</style>
+}

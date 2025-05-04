@@ -20,9 +20,10 @@ namespace ArchBackend.Web.Controllers
             _projectService = projectService; 
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var projects = await _projectService.GetProjectsAsync();
+            return View(projects);
         }
 
         public IActionResult About()
@@ -51,9 +52,10 @@ namespace ArchBackend.Web.Controllers
         }
 
 
-        public IActionResult ProjectGalery()
+        public async Task<IActionResult> ProjectGalery()
         {
-            return View();
+            var projects = await _projectService.GetProjectsAsync();
+            return View(projects);
         }
         public IActionResult WorkProcess()
         {
